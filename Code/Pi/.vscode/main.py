@@ -1,5 +1,7 @@
 print("hello vincent")
-import ultime
+import FaBo9Axis_MPU9250
+import time
+import sys
 from machine import Pin
 
 motor = Pin(2, Pin.OUT)
