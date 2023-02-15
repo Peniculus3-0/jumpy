@@ -1,9 +1,8 @@
 print("hello vincent")
-import FaBo9Axis_MPU9250
-import time
-import sys
 from machine import Pin
+import time
 
+"""
 motor = Pin(2, Pin.OUT)
 
 def stopmotor():
@@ -11,5 +10,11 @@ def stopmotor():
 
 def startmotor():
     motor.high()
+"""
+from machine import Pin
+from time import sleep
+
+
+pin = Pin("LED", Pin.OUT)
 
 
