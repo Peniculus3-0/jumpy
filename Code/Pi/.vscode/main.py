@@ -4,6 +4,7 @@ import time
 import sys
 from machine import Pin
 
+"""
 motor = Pin(2, Pin.OUT)
 
 def stopmotor():
@@ -11,5 +12,8 @@ def stopmotor():
 
 def startmotor():
     motor.high()
+
+
+pin = Pin("LED", Pin.OUT)
 
 
