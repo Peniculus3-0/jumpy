@@ -1,0 +1,16 @@
+[StartTime]
+HbeamAssembly-Static 2.MFC=1s
+[SolverState]
+HbeamAssembly-Static 2.MFC=2
+[MainFrame]
+HbeamAssembly-Static 2.MFC=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPMECAAAAAHEBAAAAAELDAAAAAKBCAAAAA
+[ShowMin]
+HbeamAssembly-Static 2.MFC=No
+[SolverType]
+HbeamAssembly-Static 2.MFC=Linear Analysis
+[StudyType]
+HbeamAssembly-Static 2.MFC=0
+[StudyName]
+HbeamAssembly-Static 2.MFC=Static 2
+[Solver]
+HbeamAssembly-Static 2.MFC=Sparse

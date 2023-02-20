@@ -1,0 +1,16 @@
+[StartTime]
+HbeamAssembly-With 100g.MFC=2s
+[SolverState]
+HbeamAssembly-With 100g.MFC=2
+[MainFrame]
+HbeamAssembly-With 100g.MFC=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPMECAAAAAHEBAAAAAELDAAAAAKBCAAAAA
+[ShowMin]
+HbeamAssembly-With 100g.MFC=No
+[SolverType]
+HbeamAssembly-With 100g.MFC=Linear Analysis
+[StudyType]
+HbeamAssembly-With 100g.MFC=0
+[StudyName]
+HbeamAssembly-With 100g.MFC=With 100g
+[Solver]
+HbeamAssembly-With 100g.MFC=Sparse

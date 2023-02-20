@@ -1,0 +1,16 @@
+[StartTime]
+HbeamAssembly-100 g no holes.MFC=1s
+[SolverState]
+HbeamAssembly-100 g no holes.MFC=2
+[MainFrame]
+HbeamAssembly-100 g no holes.MFC=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPMECAAAAAHEBAAAAAELDAAAAAKBCAAAAA
+[ShowMin]
+HbeamAssembly-100 g no holes.MFC=No
+[SolverType]
+HbeamAssembly-100 g no holes.MFC=Linear Analysis
+[StudyType]
+HbeamAssembly-100 g no holes.MFC=0
+[StudyName]
+HbeamAssembly-100 g no holes.MFC=100 g no holes
+[Solver]
+HbeamAssembly-100 g no holes.MFC=Sparse
