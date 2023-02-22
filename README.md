@@ -18,11 +18,11 @@ REQUIS:
 2x Engrenage 52mm diamètre
 1x Module Bluetooth HC06
 
-QUINCAILLERIE:
+##QUINCAILLERIE:
 
 
 
-PIÈCES À IMPRIMER
+###PIÈCES À IMPRIMER
 
 JAMBE:
 « Écrire nom des fichiers avec dossier»
@@ -35,7 +35,7 @@ SYSTÈME DE STABILISATION:
 « Écrire nom des fichiers avec dossier»
 
 
-PROCÉDURE:
+##PROCÉDURE:
 
 1. Imprimer les pièces 3D
 
