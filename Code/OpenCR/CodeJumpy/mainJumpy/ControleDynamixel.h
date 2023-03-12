@@ -4,6 +4,8 @@
 #include <Dynamixel2Arduino.h>
 
 void setupControleDynamixel();
-void mainControleDynamixel();
+void mainControleDynamixel(int);
+bool sauterUneFois(int);
+
 
 #endif
