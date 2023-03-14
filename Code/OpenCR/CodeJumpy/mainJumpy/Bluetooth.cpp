@@ -11,11 +11,10 @@ void setupBluetooth()  {
 Read Bluetooth signal
 */
 void readBluetooth() {
-    if (Serial1.available() > 0) {
-      int i = Serial4.parseInt();
-      Serial.println(i);
-      if(i == 10)
-        digitalWrite(24, 1);
-      
-    }
+    /*if (Serial1.available() > 0) {
+      int speed = Serial4.parseInt();
+      Serial.println(speed);
+      //return speed;
+      }*/
+
 }
