@@ -2,6 +2,7 @@
 #include "Bluetooth.h"
 #include "ControleFlywheel.h"
 
+
 const int PERIODE_BLUETOOTH = 10;  //ms
 enum { saute,
        tourne,
@@ -21,23 +22,23 @@ void setup() {
   setupBluetooth();
 }
 
-void loop() {
-  /*if(Serial.available())//Select "No Line Ending" in Serial Monitor
+void loop() {  
+  if(Serial.available())//Select "No Line Ending" in Serial Monitor
 { 
   Serial.read();
-  sauterUneFois(20);  
-}*/
+  sauterUneFois(-10);  
+}
+//sauter();
+  // switch (instruction) {
 
-  switch (instruction) {
+  //   case saute:
+  //     sauterUneFois(20);
+  //     instruction = wait;
+  //     break;
 
-    case saute:
-      sauterUneFois(20);
-      instruction = wait;
-      break;
-
-    case tourne:
-      //fonction tourner(angle)
-      instruction = wait;
-      break;
-  }
+  //   case tourne:
+  //     //fonction tourner(angle)
+  //     instruction = wait;
+  //     break;
+  // }
 }
