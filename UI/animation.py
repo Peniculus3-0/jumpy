@@ -34,30 +34,31 @@ def rotate(goal_angle, line):
 
     canvas.coords(line, x1, y1, new_x2, new_y2)
 
-def update(line, line2):
+def update(line, line2, x, y):
     x1, y1, x2, y2 = canvas.coords(line)
     x3, y3, x4, y4 = canvas.coords(line2)
 
     if canvas.type(line2) == 'oval':
         canvas.coords(line2, x2 - r, y2 - r, x2 + r, y2 + r)
     else:
-        #canvas.coords(line2, x2, y2, x2 + (cos()*Top_length), y2 + (cos()*Top_length)) Figure out how to prevent Top leg part from stretching
-        canvas.coords(line2, x2, y2, x4, y4)
+        canvas.coords(line2, x2, y2, x2 + x, y2 + y)
+        #canvas.coords(line2, x2, y2, x4, y4)
 
-def animate(angle):
+def animate(angle, x, y):
     rotate(angle, Bottom)
     rotate(-angle,Top)
-    update(Bottom, Top)
-    update(Top, Head)
+    update(Bottom, Top, x, y)
+    update(Top, Head, x, y)
 
 angle_range = 35.0
 angle_speed = -0.5
 
-i = 1
+i = 0
 for theta in range(abs(int(angle_range/angle_speed))):
     canvas.update()
-    canvas.after(30,animate(angle_speed))
+    deltaX = Top_length * math.cos(math.radians(-angle_speed * i - 60))
+    deltaY = Top_length * math.sin(math.radians(-angle_speed * i - 60))
+    canvas.after(30,animate(angle_speed, deltaX, deltaY))
     i = i + 1
 
 root.mainloop()
-
