@@ -7,6 +7,8 @@ uuid_battery_level_characteristic = '00002a19-0000-1000-8000-00805f9b34fb'
 
 async def main():
     devices = await BleakScanner.discover()
+    if(len(devices)==0):
+        print("No devices found")
 
     for details in devices:
         print(details.name)
@@ -17,7 +19,8 @@ async def main():
                 svcs = await client.get_services()
                 for service in svcs:
                     print(service)
-
+        else :
+            print("No device found")
 
 
 asyncio.run(main())

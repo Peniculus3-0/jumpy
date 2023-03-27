@@ -1,7 +1,7 @@
 import tkinter
 import time
 
-Window_Width = 800
+Window_Width = 1000
 
 Window_Height = 600
 
@@ -15,6 +15,8 @@ Ball_min_movement = 5
 
 Refresh_Sec = 0.01
 
+head_coord_x1
+head_coord_x2
 
 def create_animation_window():
     Window = tkinter.Tk()
@@ -26,13 +28,15 @@ def create_animation_window():
 
 def create_animation_canvas(Window):
     canvas = tkinter.Canvas(Window)
-    canvas.configure(bg="Blue")
-    canvas.pack(fill="both", expand=True)
+    canvas.configure(bg="Blue", height=500, width=500)
+    canvas.pack(side="bottom")
+    canvas.create_line(100, 200, 200, 35, fill="green", width=25)
+    canvas.create_line(100, 200, 50, 35, fill="green", width=25)
     return canvas
 
 
 def animate_ball(Window, canvas, xinc, yinc):
-    ball = canvas.create_oval(Ball_Start_XPosition - Ball_Radius,
+    ball = canvas.create_rectangle(Ball_Start_XPosition - Ball_Radius,
                               Ball_Start_YPosition - Ball_Radius,
                               Ball_Start_XPosition + Ball_Radius,
                               Ball_Start_YPosition + Ball_Radius,
@@ -44,9 +48,9 @@ def animate_ball(Window, canvas, xinc, yinc):
         ball_pos = canvas.coords(ball)
         # unpack array to variables
         al, bl, ar, br = ball_pos
-        if al < abs(xinc) or ar > Window_Width - abs(xinc):
+        if al < abs(xinc) or ar > 500 - abs(xinc):
             xinc = -xinc
-        if bl < abs(yinc) or br > Window_Height - abs(yinc):
+        if bl < abs(yinc) or br > 500 - abs(yinc):
             yinc = -yinc
 
 
