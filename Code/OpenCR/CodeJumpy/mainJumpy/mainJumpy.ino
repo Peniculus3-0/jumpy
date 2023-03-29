@@ -26,7 +26,7 @@ void loop() {
   if(Serial.available())//Select "No Line Ending" in Serial Monitor
 { 
   Serial.read();
-  sauterUneFois(-10);  
+  sauterUneFois(-6);  
 }
 //sauter();
   // switch (instruction) {
