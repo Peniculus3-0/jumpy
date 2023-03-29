@@ -10,6 +10,13 @@
 #define DEBUG_SERIAL Serial
 const int DXL_DIR_PIN = 84;  // OpenCR Board's DIR PIN.
 #endif
+// #if defined(ARDUINO_OpenCR)  // When using official ROBOTIS board with DXL circuit.
+// // For OpenCR, there is a DXL Power Enable pin, so you must initialize and control it.
+// // Reference link : https://github.com/ROBOTIS-GIT/OpenCR/blob/master/arduino/opencr_arduino/opencr/libraries/DynamixelSDK/src/dynamixel_sdk/port_handler_arduino.cpp#L78
+// #define DXL_SERIAL Serial3
+// #define DEBUG_SERIAL Serial
+// const int DXL_DIR_PIN = 84;  // OpenCR Board's DIR PIN.
+// #endif
 
 const uint8_t DXL_ID = 17;
 const float DXL_PROTOCOL_VERSION = 2.0;
@@ -74,7 +81,10 @@ bool sauterUneFois(float RPMGOAL) {
   return 1;
 }
 
-
+void sauter (){
+    dxl.setGoalVelocity(DXL_ID, 200);
+  delay(1000);
+}
 
 
 /*

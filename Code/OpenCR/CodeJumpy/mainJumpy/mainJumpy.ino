@@ -20,11 +20,13 @@ void setup() {
   setupControleDynamixel();
   setupControleFlywheel();
   setupBluetooth();
+ 
 }
 
 void loop() {  
   if(Serial.available())//Select "No Line Ending" in Serial Monitor
 { 
+  
   Serial.read();
   sauterUneFois(-6);  
 }
