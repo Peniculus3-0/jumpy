@@ -81,10 +81,10 @@ bool sauterUneFois(float RPMGOAL) {
   return 1;
 }
 
-void sauter (){
-    dxl.setGoalVelocity(DXL_ID, 200);
-  delay(1000);
-}
+// void sauter (){
+//     dxl.setGoalVelocity(DXL_ID, 200);
+//   delay(1000);
+// }
 
 
 /*

@@ -6,7 +6,7 @@
 void setupControleDynamixel();
 void mainControleDynamixel(int);
 bool sauterUneFois(float);
-void sauter();
+//void sauter();
 
 
 #endif
