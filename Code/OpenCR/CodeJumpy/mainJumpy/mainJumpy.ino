@@ -28,7 +28,7 @@ void loop() {
 { 
   
   Serial.read();
-  sauterUneFois(-10);  
+  sauterUneFois(6);  
 }
 //sauter();
   // switch (instruction) {
