@@ -1,27 +1,50 @@
 import tkinter as tk
 import math
 import time
+def setup():
 
-Window_Width = 1000
+    global root
+    root = tk.Tk()
 
-# Set window width and height
-canvas = tk.Canvas(root, width=500, height=500)
-canvas.pack()
+    ## MOTION SETTINGS ##
 
-############# Initial conditions ################
+    global angle_goal_Tibia, angle_goal_Humerus, Height_goal, Overshoot_angle
+    angle_goal_Tibia = 20 #degrees
+    angle_goal_Humerus = 20  #degrees
+    Overshoot_angle = 85 #degrees
+    Height_goal = 50 #pixels
 
-Foot_Xorigin = 250
-Foot_Yorigin = 480
+    ## REFRESH RATE SETTINGS ##
 
-Foot_length = 50
-Bottom_length = 150
-Top_length = 150
-r = 50
+    global refresh_delay, refresh_rate
+    refresh_rate = 60 #Hz
+    refresh_delay = 0.01 #seconds
 
-Foot = canvas.create_line(Foot_Xorigin, Foot_Yorigin, Foot_Xorigin + Foot_length, Foot_Yorigin)
-Bottom = canvas.create_line(Foot_Xorigin + 35, Foot_Yorigin, Foot_Xorigin + 30, Foot_Yorigin - Bottom_length)
-Top = canvas.create_line(Foot_Xorigin + 30, Foot_Yorigin - Bottom_length, Foot_Xorigin + 50, Foot_Yorigin - 350)
-Head = canvas.create_oval(300 - r,150 - r,300 + r,150 + r, fill = "black")
+    ## WINDOWS SETTINGS ##
+
+    global canvas
+    canvas = tk.Canvas(root, width=500, height=500, bg='white') # Set window width and height
+    canvas.pack()
+    root.geometry("%dx%d" % (canvas.winfo_width(), canvas.winfo_height()))  # Set the window size to the widget size
+
+    ## ROBOT DEFINITION ##
+
+    global Foot_length, Tibia_length, Tibia_angle, Humerus_angle, Humerus_length, Head_radius
+    Foot_Xorigin = 250 #pixels
+    Foot_Yorigin = 480 #pixels
+    Foot_length = 100 #pixels
+    Tibia_length = 150 #pixels
+    Tibia_angle = 20 #degrees
+    Humerus_angle = 20 #degrees
+    Humerus_length = 150 #pixels
+    Head_radius = 40 #pixels
+
+    global Foot, Tibia, Humerus, Head
+
+    Foot = canvas.create_line(Foot_Xorigin, Foot_Yorigin, Foot_Xorigin + Foot_length, Foot_Yorigin)
+    Tibia = canvas.create_line(Foot_Xorigin + (Foot_length/2), Foot_Yorigin, Foot_Xorigin + (Foot_length/2) - (Tibia_length * math.cos(math.radians(90 - Tibia_angle))), Foot_Yorigin - (Tibia_length * math.sin(math.radians(90 - Tibia_angle))))
+    Humerus = canvas.create_line(Foot_Xorigin + (Foot_length/2) - (Tibia_length * math.cos(math.radians(90 - Tibia_angle))), Foot_Yorigin - (Tibia_length * math.sin(math.radians(90 - Tibia_angle))), Foot_Xorigin + (Foot_length/2) - (Tibia_length * math.cos(math.radians(90 - Tibia_angle))) + (Humerus_length * math.cos(math.radians(90 - Humerus_angle))), Foot_Yorigin - (Tibia_length * math.sin(math.radians(90 - Tibia_angle))) - (Humerus_length * math.sin(math.radians(90 - Humerus_angle))))
+    Head = canvas.create_oval(Foot_Xorigin + (Foot_length/2) - (Tibia_length * math.cos(math.radians(90 - Tibia_angle))) + (Humerus_length * math.cos(math.radians(90 - Humerus_angle))) - Head_radius, Foot_Yorigin - (Tibia_length * math.sin(math.radians(90 - Tibia_angle))) - (Humerus_length * math.sin(math.radians(90 - Humerus_angle))) - Head_radius, Foot_Xorigin + (Foot_length/2) - (Tibia_length * math.cos(math.radians(90 - Tibia_angle))) + (Humerus_length * math.cos(math.radians(90 - Humerus_angle))) + Head_radius, Foot_Yorigin - (Tibia_length * math.sin(math.radians(90 - Tibia_angle))) - (Humerus_length * math.sin(math.radians(90 - Humerus_angle))) + Head_radius, fill="black")
 
 def rotate(goal_angle, line):
     rad = math.radians(goal_angle)
@@ -35,99 +58,78 @@ def rotate(goal_angle, line):
 
     canvas.coords(line, x1, y1, new_x2, new_y2)
 
-def update(line, line2, x, y):
-    x1, y1, x2, y2 = canvas.coords(line)
-    x3, y3, x4, y4 = canvas.coords(line2)
-
-    if canvas.type(line2) == 'oval':
-        canvas.coords(line2, x2 - r, y2 - r, x2 + r, y2 + r)
-    else:
-        canvas.coords(line2, x2, y2, x2 + x, y2 + y)
-        #canvas.coords(line2, x2, y2, x4, y4)
-
-def crouch(angle, x, y):
-    rotate(angle, Bottom)
-    rotate(angle,Top)
-    update(Bottom, Top, x, y)
-    update(Top, Head, x, y)
-
-def jump(dx, dy):
+def update():
     x1, y1, x2, y2 = canvas.coords(Foot)
-    x3, y3, x4, y4 = canvas.coords(Bottom)
-    x5, y5, x6, y6 = canvas.coords(Top)
-    x7, y7, x8, y8 = canvas.coords(Head)
+    x3, y3, x4, y4 = canvas.coords(Tibia)
+    x5, y5, x6, y6 = canvas.coords(Humerus)
+    m3 = (y6-y5)/(x6-x5)
 
-    canvas.coords(Foot, x1 + dx, y1 + dy, x2 + dx, y2 + dy)
-    canvas.coords(Bottom, x3 + dx, y3 + dy, x4 + dx, y4 + dy)
-    canvas.coords(Top, x5 + dx, y5 + dy, x6 + dx, y6 + dy)
-    canvas.coords(Head, x7 + dx, y7 + dy, x8 + dx, y8 + dy)
+    angle = -math.atan(abs(m3))
 
-angle_range_down = 45
-angle_range_up = 55
-angle_speed_down = -0.25
-angle_speed_up = 10
-canvas.create_rectangle(0, 500, 500, 482, fill="blue")
-i = 0
-for theta in range(abs(int(angle_range_down/angle_speed_down))):
-    canvas.update()
-    deltaX = Top_length * math.cos(math.radians(-angle_speed_down * i - 60))
-    deltaY = Top_length * math.sin(math.radians(-angle_speed_down * i - 60))
-    canvas.after(5,crouch(angle_speed_down, deltaX, deltaY))
-    i = i + 1
+    canvas.coords(Tibia, x1 + (x2 - x1)/2, y1, x4, y4)
+    canvas.coords(Humerus, x4, y4, x4 + (math.cos(angle)*Humerus_length), y4 + (math.sin(angle)*Humerus_length))
+    canvas.coords(Head, x6 - Head_radius, y6 - Head_radius, x6 + Head_radius, y6 + Head_radius)
+def routine1(time1, rate):
 
-i = 0
-for theta in range(abs(int(angle_range_up/angle_speed_up))):
-    canvas.update()
-    deltaX = Top_length * math.cos(math.radians(-angle_speed_up * i - 30))
-    deltaY = Top_length * math.sin(math.radians(-angle_speed_up * i - 30))
-    canvas.after(30,crouch(angle_speed_up, deltaX, deltaY))
-    i = i + 1
-    canvas.after(5, jump(-0.5, -12))
+    w1 = (angle_goal_Tibia - (90 - Tibia_angle)) / time1
+    w2 = (angle_goal_Humerus - (90 - Humerus_angle)) / time1
 
-head_coord_x1
-head_coord_x2
+    for theta in range(int(rate*time1)):
+        canvas.update()
+        rotate(w1 / rate, Tibia)
+        rotate(-w2 / rate, Humerus)
+        update()
+        time.sleep(1/rate - refresh_delay)
 
-i = 0
-for theta in range(abs(int(15/-2))):
-    canvas.update()
-    deltaX = Top_length * math.cos(math.radians(-angle_speed_down * i -70))
-    deltaY = Top_length * math.sin(math.radians(-angle_speed_down * i -70))
-    canvas.after(30,crouch(-3, deltaX, deltaY))
-    i = i + 1
-    canvas.after(5, jump(-0.5, 8.5))
+def routine2(time1,rate):
 
-    Window.geometry(f'{Window_Width}x{Window_Height}')
-    return Window
+    dy = Height_goal/(rate*time1)
+    w1 = (Overshoot_angle - 20) / time1
+    w2 = (Overshoot_angle - 20) / time1
 
+    for theta in range(int(rate*time1)):
+        canvas.update()
+        rotate(w1 / rate, Tibia)
+        rotate(-w2 / rate, Humerus)
 
-def create_animation_canvas(Window):
-    canvas = tkinter.Canvas(Window)
-    canvas.configure(bg="Blue", height=500, width=500)
-    canvas.pack(side="bottom")
-    canvas.create_line(100, 200, 200, 35, fill="green", width=25)
-    canvas.create_line(100, 200, 50, 35, fill="green", width=25)
-    return canvas
+        ## Y-axis MOTION ##
+        x1, y1, x2, y2 = canvas.coords(Foot)
+        x3, y3, x4, y4 = canvas.coords(Tibia)
+        x5, y5, x6, y6 = canvas.coords(Humerus)
+        x7, y7, x8, y8 = canvas.coords(Head)
+        canvas.coords(Foot, x1, y1 - dy, x2, y2 - dy)
+        canvas.coords(Tibia, x3, y3 - dy, x4, y4 - dy)
+        canvas.coords(Humerus, x5, y5 - dy, x6, y6 - dy)
+        canvas.coords(Head, x7, y7 - dy, x8, y8 - dy)
 
+        update()
+        time.sleep(1 / rate - refresh_delay)
 
-def animate_ball(Window, canvas, xinc, yinc):
-    ball = canvas.create_rectangle(Ball_Start_XPosition - Ball_Radius,
-                              Ball_Start_YPosition - Ball_Radius,
-                              Ball_Start_XPosition + Ball_Radius,
-                              Ball_Start_YPosition + Ball_Radius,
-                              fill="Red", outline="Black", width=4)
-    while True:
-        canvas.move(ball, xinc, yinc)
-        Window.update()
-        time.sleep(Refresh_Sec)
-        ball_pos = canvas.coords(ball)
-        # unpack array to variables
-        al, bl, ar, br = ball_pos
-        if al < abs(xinc) or ar > 500 - abs(xinc):
-            xinc = -xinc
-        if bl < abs(yinc) or br > 500 - abs(yinc):
-            yinc = -yinc
+def routine3(time1,rate):
 
+    dy = Height_goal/(rate*time1)
 
-Animation_Window = create_animation_window()
-Animation_canvas = create_animation_canvas(Animation_Window)
-animate_ball(Animation_Window, Animation_canvas, Ball_min_movement, Ball_min_movement)
+    for theta in range(int(rate*time1)):
+        canvas.update()
+
+        ## Y-axis MOTION ##
+        x1, y1, x2, y2 = canvas.coords(Foot)
+        x3, y3, x4, y4 = canvas.coords(Tibia)
+        x5, y5, x6, y6 = canvas.coords(Humerus)
+        x7, y7, x8, y8 = canvas.coords(Head)
+        canvas.coords(Foot, x1, y1 + dy, x2, y2 + dy)
+        canvas.coords(Tibia, x3, y3 + dy, x4, y4 + dy)
+        canvas.coords(Humerus, x5, y5 + dy, x6, y6 + dy)
+        canvas.coords(Head, x7, y7 + dy, x8, y8 + dy)
+
+        update()
+        time.sleep(1/rate - refresh_delay)
+def animate(time):
+    setup()
+    routine1(time[0],refresh_rate)
+    routine2(time[1],refresh_rate)
+    routine3(time[2],refresh_rate)
+    root.mainloop()
+
+# Time of execution of each routine in numerical order
+animate([10,0.5,0.5])
