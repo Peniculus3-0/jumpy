@@ -2,8 +2,8 @@ from builtins import str
 from tkinter import DISABLED
 from turtle import window_height
 
-import customtkinter
-import os
+import customtkinter as customtkinter
+import os 
 from PIL import Image
 import bluetooth
 import asyncio
@@ -11,13 +11,11 @@ from bleak import BleakScanner, BleakClient, discover
 import tkinter as tk
 from tkinter import ttk
 import threading
-
     
 device_address = "94:A9:A8:3A:52:90"
 CHARACTERISTIC_UUID = "0000ffe1-0000-1000-8000-00805f9b34fb"
 message = 'N'
 label_text = " "
-
 class BLEScanner:
     def __init__(self, device_list):
         self.device_list = device_list
@@ -82,7 +80,7 @@ class App(customtkinter.CTk):
         label_font = customtkinter.CTkFont(family="Arial", size=20)
 
         # set grid layout 1x2
-        self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure(2, weight=1)
         self.grid_columnconfigure(1, weight=1)
 
         # load images 
@@ -93,12 +91,18 @@ class App(customtkinter.CTk):
         self.iconbitmap(os.path.join(image_path, "logo.ico"))
 
         # create navigation frame
-        self.navigation_frame = customtkinter.CTkFrame(self, corner_radius=0)
+        self.navigation_frame = customtkinter.CTkFrame(self, corner_radius=0, )
         self.navigation_frame.grid(row=0, column=0, sticky="nsew")
-        self.navigation_frame.grid_rowconfigure(4, weight=1)
+        self.navigation_frame.grid_rowconfigure(2, weight=1)
+
+         # create animation frame
+        canvas = customtkinter.CTkCanvas(self, width=500, height=500, bg="white")
+        canvas.grid(row=1, column=1, sticky="nsew")
+
 
         self.navigation_frame_label = customtkinter.CTkLabel(self.navigation_frame, text=" jumpy",
                                                              compound="left", font=button_font)
+        
         self.navigation_frame_label.grid(row=0, column=0, padx=20, pady=20)
 
         self.home_button = customtkinter.CTkButton(self.navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Home",

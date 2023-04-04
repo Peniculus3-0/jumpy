@@ -126,8 +126,8 @@ def routine3(time1,rate):
         time.sleep(1/rate - refresh_delay)
 def animate(time):
     setup()
-    routine1(time[0],refresh_rate)
-    routine2(time[1],refresh_rate)
+    #routine1(time[0],refresh_rate)
+    #routine2(time[1],refresh_rate)
     #routine3(time[2],refresh_rate)
     root.mainloop()
 
