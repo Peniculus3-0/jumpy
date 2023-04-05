@@ -5,19 +5,19 @@ from turtle import window_height
 import customtkinter as customtkinter
 import os 
 from PIL import Image
-import bluetooth
 import asyncio
 from bleak import BleakScanner, BleakClient, discover
-import tkinter as tk
-from tkinter import ttk
 import threading
 import animationv2 as animation
+import time
     
 device_address = "94:A9:A8:3A:52:90"
 CHARACTERISTIC_UUID = "0000ffe1-0000-1000-8000-00805f9b34fb"
 message = 'N'
 label_text = " "
-class BLEScanner:
+device_list = []
+combo_box_values = []
+class BLEScanner: 
     def __init__(self, device_list):
         self.device_list = device_list
         
@@ -35,8 +35,28 @@ def on_scan_finished(device_list):
     print("Scan finished.")
     for dev in device_list:
         print("Device %s, name=%s " % (dev.address, dev.name))
+        # app.textbox.insert(tk.END, "Device %s, Name=%s \n" % (dev.address, dev.name))
+        if dev.name != None:
+            combo_box_values.append(dev.address + " " + str(dev.name))
 
-def start_scanning_async(device_list):
+    if combo_box_values != []:
+        app.label_avertissement.configure(text="Select a device")
+        app.combobox.configure(state="readonly")
+        app.combobox.configure(values=(combo_box_values))
+        # app.button_scan.configure(state="disabled")
+        # app.button_connect.configure(state="normal")
+    else:
+        app.label_avertissement.configure(text="No device found")
+        # app.button_scan.configure(state="normal")
+        # app.button_connect.configure(state="disabled")
+        app.combobox.configure(state="disabled")
+        app.combobox.configure(values=[])
+        app.combobox.set("")
+    
+ 
+        
+
+def start_scanning_async():
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     loop.run_until_complete(start_scanning(device_list))
@@ -65,9 +85,34 @@ async def connect_to_device(message):
             
     #         await client.write_gatt_char(CHARACTERISTIC_UUID, bytearray(message.encode()))
     #     else:
-            app.label_avertissement.configure(text="Not Connected")
+    time.sleep(10)
+    app.label_avertissement.configure(text="Not Connected")
             
+class RadioButtonFrame(customtkinter.CTkFrame):
+    def __init__(self, *args, header_name="RadioButtonFrame", **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        self.header_name = header_name
 
+        self.header = customtkinter.CTkLabel(self, text=self.header_name)
+        self.header.grid(row=0, column=0, padx=10, pady=10)
+
+        self.radio_button_var = customtkinter.StringVar(value="")
+
+        self.radio_button_1 = customtkinter.CTkRadioButton(self, text="Option 1", value="Option 1", variable=self.radio_button_var)
+        self.radio_button_1.grid(row=1, column=0, padx=10, pady=10)
+        self.radio_button_2 = customtkinter.CTkRadioButton(self, text="Option 2", value="Option 2", variable=self.radio_button_var)
+        self.radio_button_2.grid(row=2, column=0, padx=10, pady=10)
+        self.radio_button_3 = customtkinter.CTkRadioButton(self, text="Option 3", value="Option 3", variable=self.radio_button_var)
+        self.radio_button_3.grid(row=3, column=0, padx=10, pady=(10, 20))
+
+    def get_value(self):
+        """ returns selected value as a string, returns an empty string if nothing selected """
+        return self.radio_button_var.get()
+
+    def set_value(self, selection):
+        """ selects the corresponding radio button, selects nothing if no corresponding radio button """
+        self.radio_button_var.set(selection)
 
 
 
@@ -83,6 +128,8 @@ class App(customtkinter.CTk):
         # set grid layout 1x2
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
+
+       
 
         # load images 
         image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "images")
@@ -124,7 +171,7 @@ class App(customtkinter.CTk):
         self.home_frame.grid_columnconfigure(0, weight=1)
         self.home_frame.grid_rowconfigure(2, weight=1)
 
-        
+
 
         # self.connect_button = customtkinter.CTkButton(self.home_frame, text="Connect", compound="right", command=lambda: threading.Thread(target=connect_to_device_async, args=(message)).start())
         # self.connect_button.grid(row=2, column=0, padx=20, pady=10)
@@ -139,6 +186,12 @@ class App(customtkinter.CTk):
         # self.hello_buttun.grid(row=1, column=0, padx=40, pady=20)
         self.label_avertissement = customtkinter.CTkLabel(self.home_frame, text=label_text, font=label_font)
         self.label_avertissement.grid(row=1, column=0, padx=20, pady=20)
+
+        # self.textbox = customtkinter.CTkTextbox(self.home_frame, width=400, corner_radius=0)
+        # self.textbox.grid(row=5, column=0, sticky="n", padx=20, pady=20)
+
+        self.combobox = customtkinter.CTkComboBox(self.home_frame,  values=["Device"])
+        self.combobox.grid(row=5, column=0, sticky="n", padx=20, pady=20)
 
         self.robot_label = customtkinter.CTkLabel(self.home_frame, image=self.robot_image, text=None)
         self.robot_label.grid(row=2, column=0)
