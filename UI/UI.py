@@ -124,7 +124,7 @@ class App(customtkinter.CTk):
         self.home_frame.grid_columnconfigure(0, weight=1)
         self.home_frame.grid_rowconfigure(2, weight=1)
 
-
+        
 
         # self.connect_button = customtkinter.CTkButton(self.home_frame, text="Connect", compound="right", command=lambda: threading.Thread(target=connect_to_device_async, args=(message)).start())
         # self.connect_button.grid(row=2, column=0, padx=20, pady=10)
@@ -133,6 +133,8 @@ class App(customtkinter.CTk):
         self.jump_button = customtkinter.CTkButton(self.home_frame, text="JUMP",font=button_font, compound="bottom", height=60, width=200, command=lambda: threading.Thread(target=connect_to_device_async, args=(message)).start())
         self.jump_button.grid(row=0, column=0, padx=40, pady=20)
 
+        self.find_button = customtkinter.CTkButton(self.home_frame, text="Find", font=button_font, compound="bottom", height=60, width=200, command=lambda: threading.Thread(target=start_scanning_async, args=(device_list)).start())
+        self.find_button.grid(row=3, column=0, padx=40, pady=20)
         # self.hello_buttun = customtkinter.CTkButton(self.home_frame, text="Hello", font=button_font, compound="bottom", height=60, width=200, command=animation.print)
         # self.hello_buttun.grid(row=1, column=0, padx=40, pady=20)
         self.label_avertissement = customtkinter.CTkLabel(self.home_frame, text=label_text, font=label_font)
