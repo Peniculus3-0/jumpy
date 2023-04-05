@@ -11,6 +11,7 @@ from bleak import BleakScanner, BleakClient, discover
 import tkinter as tk
 from tkinter import ttk
 import threading
+import animationv2 as animation
     
 device_address = "94:A9:A8:3A:52:90"
 CHARACTERISTIC_UUID = "0000ffe1-0000-1000-8000-00805f9b34fb"
@@ -96,8 +97,8 @@ class App(customtkinter.CTk):
         self.navigation_frame.grid_rowconfigure(2, weight=1)
 
          # create animation frame
-        canvas = customtkinter.CTkCanvas(self, width=500, height=500, bg="white")
-        canvas.grid(row=1, column=1, sticky="nsew")
+        self.animation_canvas = animation.canvas(self)
+        self.animation_canvas.grid(row=0, column=5, sticky="nsew")
 
 
         self.navigation_frame_label = customtkinter.CTkLabel(self.navigation_frame, text=" jumpy",
@@ -127,8 +128,10 @@ class App(customtkinter.CTk):
        
 
         self.jump_button = customtkinter.CTkButton(self.home_frame, text="JUMP",font=button_font, compound="bottom", height=60, width=200, command=lambda: threading.Thread(target=connect_to_device_async, args=(message)).start())
-        self.jump_button.grid(row=4, column=0, padx=40, pady=20)
+        self.jump_button.grid(row=2, column=1, padx=40, pady=20)
 
+        self.hello_buttun = customtkinter.CTkButton(self.home_frame, text="Hello", font=button_font, compound="bottom", height=60, width=200, command=animation.print)
+        self.hello_buttun.grid(row=2, column=1, padx=40, pady=20)
         self.label_avertissement = customtkinter.CTkLabel(self.home_frame, text=label_text, font=label_font)
         self.label_avertissement.grid(row=1, column=0, padx=20, pady=20)
 
