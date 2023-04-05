@@ -81,29 +81,31 @@ class App(customtkinter.CTk):
         label_font = customtkinter.CTkFont(family="Arial", size=20)
 
         # set grid layout 1x2
-        self.grid_rowconfigure(2, weight=1)
+        self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
 
         # load images 
         image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "images")
         self.logo_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "logo-color.png")), size=(100, 50))
+        self.robot_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "robot.png")), size=(250, 250))
 
         # set icon
         self.iconbitmap(os.path.join(image_path, "logo.ico"))
 
-        # create navigation frame
+        # c 
         self.navigation_frame = customtkinter.CTkFrame(self, corner_radius=0, )
         self.navigation_frame.grid(row=0, column=0, sticky="nsew")
         self.navigation_frame.grid_rowconfigure(2, weight=1)
 
          # create animation frame
-        self.animation_canvas = animation.canvas(self)
-        self.animation_canvas.grid(row=0, column=5, sticky="nsew")
+        # self.animation_canvas = animation.canvas(self)
+        # self.animation_canvas.grid(row=0, column=5, sticky="nsew")
 
 
         self.navigation_frame_label = customtkinter.CTkLabel(self.navigation_frame, text=" jumpy",
                                                              compound="left", font=button_font)
         
+    
         self.navigation_frame_label.grid(row=0, column=0, padx=20, pady=20)
 
         self.home_button = customtkinter.CTkButton(self.navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Home",
@@ -120,6 +122,7 @@ class App(customtkinter.CTk):
         # create home frame
         self.home_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
         self.home_frame.grid_columnconfigure(0, weight=1)
+        self.home_frame.grid_rowconfigure(2, weight=1)
 
 
 
@@ -128,12 +131,15 @@ class App(customtkinter.CTk):
        
 
         self.jump_button = customtkinter.CTkButton(self.home_frame, text="JUMP",font=button_font, compound="bottom", height=60, width=200, command=lambda: threading.Thread(target=connect_to_device_async, args=(message)).start())
-        self.jump_button.grid(row=2, column=1, padx=40, pady=20)
+        self.jump_button.grid(row=0, column=0, padx=40, pady=20)
 
-        self.hello_buttun = customtkinter.CTkButton(self.home_frame, text="Hello", font=button_font, compound="bottom", height=60, width=200, command=animation.print)
-        self.hello_buttun.grid(row=2, column=1, padx=40, pady=20)
+        # self.hello_buttun = customtkinter.CTkButton(self.home_frame, text="Hello", font=button_font, compound="bottom", height=60, width=200, command=animation.print)
+        # self.hello_buttun.grid(row=1, column=0, padx=40, pady=20)
         self.label_avertissement = customtkinter.CTkLabel(self.home_frame, text=label_text, font=label_font)
         self.label_avertissement.grid(row=1, column=0, padx=20, pady=20)
+
+        self.robot_label = customtkinter.CTkLabel(self.home_frame, image=self.robot_image, text=None)
+        self.robot_label.grid(row=2, column=0)
 
 # if multiple frame
 
