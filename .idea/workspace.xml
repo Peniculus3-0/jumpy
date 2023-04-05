@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="cfaafc61-05e0-4ba2-a499-5d3c9147f259" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI/animation.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/animation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/Bluetooth.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/Bluetooth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/UI.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/UI.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +94,7 @@
       <workItem from="1679879557472" duration="16000" />
       <workItem from="1679880100058" duration="1000" />
       <workItem from="1679880205885" duration="1000" />
-      <workItem from="1680275007628" duration="66000" />
+      <workItem from="1679969747689" duration="208000" />
     </task>
     <servers />
   </component>
@@ -102,6 +102,8 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/animation_py$animation.coverage" NAME="animation Coverage Results" MODIFIED="1679502030594" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/UI" />
+    <SUITE FILE_PATH="coverage/threading_py$threading.coverage" NAME="threading Coverage Results" MODIFIED="1679969894417" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/UI" />
     <SUITE FILE_PATH="coverage/jumpy$animation.coverage" NAME="animation Coverage Results" MODIFIED="1679493411428" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Python animation" />
     <SUITE FILE_PATH="coverage/image_example_py$image_example.coverage" NAME="image_example Coverage Results" MODIFIED="1679879567600" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/UI" />
     <SUITE FILE_PATH="coverage/animation_py$main.coverage" NAME="main Coverage Results" MODIFIED="1679495838647" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pythonProject1" />
