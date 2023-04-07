@@ -67,30 +67,36 @@ void sauter() {
 //OUTPUT : Bool return 1 si pas d'erreur
 bool sauterUneFois(float RPMGOAL) {
   //percent = percent * 0.02;
-  dxl.setGoalVelocity(DXL_ID1, RPMGOAL, UNIT_RPM);
-  float loadActuel = (dxl.getPresentCurrent(DXL_ID1));
-  DEBUG_SERIAL.println(dxl.getPresentCurrent(DXL_ID1));
 
+  dxl.setGoalVelocity(DXL_ID1, RPMGOAL, UNIT_RPM);
   dxl.setGoalVelocity(DXL_ID2, RPMGOAL, UNIT_RPM);
 
-
-
-  
+  float loadActuel = (dxl.getPresentCurrent(DXL_ID1));
   float loadPrecedent = loadActuel;
+
+  DEBUG_SERIAL.println(dxl.getPresentCurrent(DXL_ID1));
+  DEBUG_SERIAL.println(dxl.getPresentCurrent(DXL_ID2));
+
+
   tempsActuel = millis();
   while ((loadActuel - RANGE_DETECTION_LOAD) < loadPrecedent) {
-      Serial.print((loadActuel - RANGE_DETECTION_LOAD));
-      Serial.print("\t");
-      Serial.println(loadPrecedent);
+    //      Serial.print((loadActuel - RANGE_DETECTION_LOAD));
+    //      Serial.print("\t");
+    //      Serial.println(loadPrecedent);
+    Serial.print(dxl.getPresentCurrent(DXL_ID1));
+    Serial.print("\t");
+    Serial.print(dxl.getPresentCurrent(DXL_ID2));
+    Serial.print("\t");
+    Serial.println(dxl.getPresentCurrent(DXL_ID2)-dxl.getPresentCurrent(DXL_ID1));
+
     if (millis() - tempsActuel > PERIODE) {
-      // Serial.print(loadPrecedent);
-      // Serial.print("\t");
-      // Serial.println(loadActuel);
-      loadPrecedent = loadActuel;
-      tempsActuel = millis();
+    // Serial.print(loadPrecedent);
+    // Serial.print("\t");
+    // Serial.println(loadActuel);
+    loadPrecedent = loadActuel;
+    tempsActuel = millis();
     }
     loadActuel = dxl.getPresentCurrent(DXL_ID1);
-
   }
   dxl.setGoalVelocity(DXL_ID1, 0);
   dxl.setGoalVelocity(DXL_ID2, 0);
@@ -104,12 +110,12 @@ bool sauterUneFois(float RPMGOAL) {
 
 
 /*
-void mainControleDynamixel(int Percent) {
+  void mainControleDynamixel(int Percent) {
   // Set Goal Velocity using RPM
   dxl.setGoalVelocity(DXL_ID, 25.8, UNIT_RPM);
   delay(1000);
   DEBUG_SERIAL.print("Present Velocity(rpm) : ");
   DEBUG_SERIAL.println(dxl.getPresentVelocity(DXL_ID, UNIT_RPM));
   delay(1000);
-}
+  }
 */

@@ -1,5 +1,5 @@
-#ifndef   CONTROLEDYNAMIXEL
-#define   CONTROLEDYNAMIXEL
+#ifndef   CONTROLEDYNAMIXEL_H
+#define   CONTROLEDYNAMIXEL_H
 
 #include <Dynamixel2Arduino.h>
 
