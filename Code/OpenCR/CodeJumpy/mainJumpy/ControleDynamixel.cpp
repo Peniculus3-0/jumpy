@@ -18,12 +18,13 @@ const int DXL_DIR_PIN = 84;  // OpenCR Board's DIR PIN.
 // const int DXL_DIR_PIN = 84;  // OpenCR Board's DIR PIN.
 // #endif
 
-const uint8_t DXL_ID = 17;
+const uint8_t DXL_ID1 = 17;
+const uint8_t DXL_ID2 = 1;
 const float DXL_PROTOCOL_VERSION = 2.0;
 unsigned long tempsActuel = 0;
 unsigned long tempsPrecedent = 0;
 const int PERIODE = 100;
-const float RANGE_DETECTION_LOAD = 150;
+const float RANGE_DETECTION_LOAD = 500;
 
 
 Dynamixel2Arduino dxl(DXL_SERIAL, DXL_DIR_PIN);
@@ -41,17 +42,24 @@ void setupControleDynamixel() {
   // Set Port Protocol Version. This has to match with DYNAMIXEL protocol version.
   dxl.setPortProtocolVersion(DXL_PROTOCOL_VERSION);
   // Get DYNAMIXEL information
-  dxl.ping(DXL_ID);
+  dxl.ping(DXL_ID1);
+  dxl.ping(DXL_ID2);
 
   // Turn off torque when configuring items in EEPROM area
-  dxl.torqueOff(DXL_ID);
-  dxl.setOperatingMode(DXL_ID, OP_VELOCITY);
-  dxl.torqueOn(DXL_ID);
+  dxl.torqueOff(DXL_ID1);
+  dxl.setOperatingMode(DXL_ID1, OP_VELOCITY);
+  dxl.torqueOn(DXL_ID1);
+
+  dxl.torqueOff(DXL_ID2);
+  dxl.setOperatingMode(DXL_ID2, OP_VELOCITY);
+  dxl.torqueOn(DXL_ID2);
 }
 
 void sauter() {
-  dxl.setGoalVelocity(DXL_ID, 15, UNIT_RPM);
-  DEBUG_SERIAL.println(dxl.getPresentCurrent(DXL_ID, UNIT_MILLI_AMPERE));
+  dxl.setGoalVelocity(DXL_ID1, 15, UNIT_RPM);
+  DEBUG_SERIAL.println(dxl.getPresentCurrent(DXL_ID1, UNIT_MILLI_AMPERE));
+  dxl.setGoalVelocity(DXL_ID2, 15, UNIT_RPM);
+  DEBUG_SERIAL.println(dxl.getPresentCurrent(DXL_ID2, UNIT_MILLI_AMPERE));
   delay(500);
 }
 
@@ -59,9 +67,15 @@ void sauter() {
 //OUTPUT : Bool return 1 si pas d'erreur
 bool sauterUneFois(float RPMGOAL) {
   //percent = percent * 0.02;
-  dxl.setGoalVelocity(DXL_ID, RPMGOAL, UNIT_RPM);
-  float loadActuel = (dxl.getPresentCurrent(DXL_ID));
-  DEBUG_SERIAL.println(dxl.getPresentCurrent(DXL_ID));
+  dxl.setGoalVelocity(DXL_ID1, RPMGOAL, UNIT_RPM);
+  float loadActuel = (dxl.getPresentCurrent(DXL_ID1));
+  DEBUG_SERIAL.println(dxl.getPresentCurrent(DXL_ID1));
+
+  dxl.setGoalVelocity(DXL_ID2, RPMGOAL, UNIT_RPM);
+
+
+
+  
   float loadPrecedent = loadActuel;
   tempsActuel = millis();
   while ((loadActuel - RANGE_DETECTION_LOAD) < loadPrecedent) {
@@ -75,9 +89,11 @@ bool sauterUneFois(float RPMGOAL) {
       loadPrecedent = loadActuel;
       tempsActuel = millis();
     }
-    loadActuel = dxl.getPresentCurrent(DXL_ID);
+    loadActuel = dxl.getPresentCurrent(DXL_ID1);
+
   }
-  dxl.setGoalVelocity(DXL_ID, 0);
+  dxl.setGoalVelocity(DXL_ID1, 0);
+  dxl.setGoalVelocity(DXL_ID2, 0);
   return 1;
 }
 
