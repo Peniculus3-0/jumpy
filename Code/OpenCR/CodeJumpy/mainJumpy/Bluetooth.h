@@ -1,11 +1,11 @@
-// #ifndef   BLUETOOTH_H
-// #define   BLUETOOTH_H
-// // #include "ControleDynamixel.h"
+#ifndef   BLUETOOTH_H
+#define   BLUETOOTH_H
+// #include "ControleDynamixel.h"
 
-// #include <Arduino.h>
+#include <Arduino.h>
+#include "main.h"
 
+void setupBluetooth();
+void readBluetooth();
 
-// void setupBluetooth();
-// void readBluetooth();
-// int instruction;
-// #endif
+#endif

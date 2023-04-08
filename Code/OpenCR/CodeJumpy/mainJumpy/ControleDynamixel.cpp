@@ -24,7 +24,7 @@ const float DXL_PROTOCOL_VERSION = 2.0;
 unsigned long tempsActuel = 0;
 unsigned long tempsPrecedent = 0;
 const int PERIODE = 100;
-const float RANGE_DETECTION_LOAD = 500;
+const float RANGE_DETECTION_LOAD = 200;
 
 
 Dynamixel2Arduino dxl(DXL_SERIAL, DXL_DIR_PIN);
@@ -67,7 +67,8 @@ void sauter() {
 //OUTPUT : Bool return 1 si pas d'erreur
 bool sauterUneFois(float RPMGOAL) {
   //percent = percent * 0.02;
-
+  dxl.torqueOn(DXL_ID1);
+  dxl.torqueOn(DXL_ID2);
   dxl.setGoalVelocity(DXL_ID1, RPMGOAL, UNIT_RPM);
   dxl.setGoalVelocity(DXL_ID2, RPMGOAL, UNIT_RPM);
 
@@ -83,18 +84,38 @@ bool sauterUneFois(float RPMGOAL) {
     //      Serial.print((loadActuel - RANGE_DETECTION_LOAD));
     //      Serial.print("\t");
     //      Serial.println(loadPrecedent);
+    // if (Serial1.available() > 0) {
+    //   if (Serial1.read() == 's') {
+    //     dxl.setGoalVelocity(DXL_ID1, 0);
+    //     dxl.setGoalVelocity(DXL_ID2, 0);
+    //     Serial.println("yo");
+    //     return 0;
+    //   }
+    // }
+
+    if (Serial.available()) {
+      Serial.read();
+      dxl.setGoalVelocity(DXL_ID1, 0);
+      dxl.setGoalVelocity(DXL_ID2, 0);
+      // dxl.torqueOff(DXL_ID1);
+      // dxl.torqueOff(DXL_ID2);
+      Serial.println("yo");
+      return 0;
+    }
+
+
     Serial.print(dxl.getPresentCurrent(DXL_ID1));
     Serial.print("\t");
     Serial.print(dxl.getPresentCurrent(DXL_ID2));
     Serial.print("\t");
-    Serial.println(dxl.getPresentCurrent(DXL_ID2)-dxl.getPresentCurrent(DXL_ID1));
+    Serial.println(dxl.getPresentCurrent(DXL_ID2) - dxl.getPresentCurrent(DXL_ID1));
 
     if (millis() - tempsActuel > PERIODE) {
-    // Serial.print(loadPrecedent);
-    // Serial.print("\t");
-    // Serial.println(loadActuel);
-    loadPrecedent = loadActuel;
-    tempsActuel = millis();
+      // Serial.print(loadPrecedent);
+      // Serial.print("\t");
+      // Serial.println(loadActuel);
+      loadPrecedent = loadActuel;
+      tempsActuel = millis();
     }
     loadActuel = dxl.getPresentCurrent(DXL_ID1);
   }

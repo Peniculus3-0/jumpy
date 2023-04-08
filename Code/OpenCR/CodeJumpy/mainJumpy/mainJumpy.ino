@@ -1,16 +1,17 @@
 #include "ControleDynamixel.h"
-// #include "Bluetooth.h"
 #include "ControleFlywheel.h"
-void setupBluetooth();
-void readBluetooth() ;
-
+#include "main.h"
+#include "Bluetooth.h"
+// void setupBluetooth();
+// void readBluetooth();
+volatile char instruction;
 const int PERIODE_BLUETOOTH = 10;  //ms
 // enum { saute,
 //        tourne,
 //        wait };
 
 HardwareTimer Timer(TIMER_CH1);
-volatile char instruction;
+
 void setup() {
   // put your setup code here, to run once:
   setupBluetooth();
@@ -25,44 +26,27 @@ void setup() {
 }
 
 void loop() {  
-//   if(Serial.available())//Select "No Line Ending" in Serial Monitor
-// { 
+  if(Serial.available())//Select "No Line Ending" in Serial Monitor
+{ 
   
-//   Serial.read();
-//   sauterUneFois(5);  
-// }
+  Serial.read();
+  sauterUneFois(4);  
+}
 // sauter();
-  switch (instruction) {
+  // switch (instruction) {
 
-    case 's':
-      sauterUneFois(20);
-      instruction = 'w';
-      break;
+  //   case 's':
+  //     sauterUneFois(6);
+  //     instruction = 'w';
+  //     break;
 
-    case 't':
-      //fonction tourner(angle)
-      instruction = 'w';
-      break;
-  }
+  //   case 't':
+  //     //fonction tourner(angle)
+  //     instruction = 'w';
+  //     break;
+  // }
 }
 
 
 
 
-void setupBluetooth()  {
-    // Define pin modes for TX and RX
-    pinMode(24, OUTPUT);
-    // Set the baud rate for the SoftwareSerial object
-    Serial4.begin(9600);
-}
-/*
-Read Bluetooth signal
-*/
-void readBluetooth() {
-    if (Serial1.available() > 0) {
-      instruction = Serial4.read();
-      // Serial.println(speed);
-      // //return speed;
-      }
-
-}
