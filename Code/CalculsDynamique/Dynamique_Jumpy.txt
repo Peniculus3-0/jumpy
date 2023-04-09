@@ -1,0 +1,11 @@
+variable theta, phi
+
+NewtonianFrame N 
+RigidFrame A 
+
+Point A,B,C
+
+A.rotateZ(B, phi)
+B.Translate(No, 0>)
+A.Translate(No, -0.12285*nx>)
+C.Translate(A, 0.12*ax>)

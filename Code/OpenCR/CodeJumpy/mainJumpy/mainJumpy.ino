@@ -1,25 +1,27 @@
 #include "ControleDynamixel.h"
-#include "Bluetooth.h"
 #include "ControleFlywheel.h"
-
-
+#include "main.h"
+#include "Bluetooth.h"
+// void setupBluetooth();
+// void readBluetooth();
+volatile char instruction;
 const int PERIODE_BLUETOOTH = 10;  //ms
-enum { saute,
-       tourne,
-       wait };
-volatile unsigned char instruction;
+// enum { saute,
+//        tourne,
+//        wait };
 
 HardwareTimer Timer(TIMER_CH1);
 
 void setup() {
   // put your setup code here, to run once:
+  setupBluetooth();
   Timer.stop();
   Timer.setPeriod(PERIODE_BLUETOOTH * 1000);  //Timer utilise des microsecondes
   Timer.attachInterrupt(readBluetooth);
   Timer.start();
   setupControleDynamixel();
   setupControleFlywheel();
-  setupBluetooth();
+ 
  
 }
 
@@ -28,19 +30,23 @@ void loop() {
 { 
   
   Serial.read();
-  sauterUneFois(6);  
+  sauterUneFois(4);  
 }
-//sauter();
+// sauter();
   // switch (instruction) {
 
-  //   case saute:
-  //     sauterUneFois(20);
-  //     instruction = wait;
+  //   case 's':
+  //     sauterUneFois(6);
+  //     instruction = 'w';
   //     break;
 
-  //   case tourne:
+  //   case 't':
   //     //fonction tourner(angle)
-  //     instruction = wait;
+  //     instruction = 'w';
   //     break;
   // }
 }
+
+
+
+

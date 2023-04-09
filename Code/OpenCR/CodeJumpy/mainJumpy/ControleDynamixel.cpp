@@ -18,12 +18,13 @@ const int DXL_DIR_PIN = 84;  // OpenCR Board's DIR PIN.
 // const int DXL_DIR_PIN = 84;  // OpenCR Board's DIR PIN.
 // #endif
 
-const uint8_t DXL_ID = 17;
+const uint8_t DXL_ID1 = 17;
+const uint8_t DXL_ID2 = 1;
 const float DXL_PROTOCOL_VERSION = 2.0;
 unsigned long tempsActuel = 0;
 unsigned long tempsPrecedent = 0;
 const int PERIODE = 100;
-const float RANGE_DETECTION_LOAD = 150;
+const float RANGE_DETECTION_LOAD = 200;
 
 
 Dynamixel2Arduino dxl(DXL_SERIAL, DXL_DIR_PIN);
@@ -41,17 +42,24 @@ void setupControleDynamixel() {
   // Set Port Protocol Version. This has to match with DYNAMIXEL protocol version.
   dxl.setPortProtocolVersion(DXL_PROTOCOL_VERSION);
   // Get DYNAMIXEL information
-  dxl.ping(DXL_ID);
+  dxl.ping(DXL_ID1);
+  dxl.ping(DXL_ID2);
 
   // Turn off torque when configuring items in EEPROM area
-  dxl.torqueOff(DXL_ID);
-  dxl.setOperatingMode(DXL_ID, OP_VELOCITY);
-  dxl.torqueOn(DXL_ID);
+  dxl.torqueOff(DXL_ID1);
+  dxl.setOperatingMode(DXL_ID1, OP_VELOCITY);
+  dxl.torqueOn(DXL_ID1);
+
+  dxl.torqueOff(DXL_ID2);
+  dxl.setOperatingMode(DXL_ID2, OP_VELOCITY);
+  dxl.torqueOn(DXL_ID2);
 }
 
 void sauter() {
-  dxl.setGoalVelocity(DXL_ID, 15, UNIT_RPM);
-  DEBUG_SERIAL.println(dxl.getPresentCurrent(DXL_ID, UNIT_MILLI_AMPERE));
+  dxl.setGoalVelocity(DXL_ID1, 15, UNIT_RPM);
+  DEBUG_SERIAL.println(dxl.getPresentCurrent(DXL_ID1, UNIT_MILLI_AMPERE));
+  dxl.setGoalVelocity(DXL_ID2, 15, UNIT_RPM);
+  DEBUG_SERIAL.println(dxl.getPresentCurrent(DXL_ID2, UNIT_MILLI_AMPERE));
   delay(500);
 }
 
@@ -59,15 +67,49 @@ void sauter() {
 //OUTPUT : Bool return 1 si pas d'erreur
 bool sauterUneFois(float RPMGOAL) {
   //percent = percent * 0.02;
-  dxl.setGoalVelocity(DXL_ID, RPMGOAL, UNIT_RPM);
-  float loadActuel = (dxl.getPresentCurrent(DXL_ID));
-  DEBUG_SERIAL.println(dxl.getPresentCurrent(DXL_ID));
+  dxl.torqueOn(DXL_ID1);
+  dxl.torqueOn(DXL_ID2);
+  dxl.setGoalVelocity(DXL_ID1, RPMGOAL, UNIT_RPM);
+  dxl.setGoalVelocity(DXL_ID2, RPMGOAL, UNIT_RPM);
+
+  float loadActuel = (dxl.getPresentCurrent(DXL_ID1));
   float loadPrecedent = loadActuel;
+
+  DEBUG_SERIAL.println(dxl.getPresentCurrent(DXL_ID1));
+  DEBUG_SERIAL.println(dxl.getPresentCurrent(DXL_ID2));
+
+
   tempsActuel = millis();
   while ((loadActuel - RANGE_DETECTION_LOAD) < loadPrecedent) {
-      Serial.print((loadActuel - RANGE_DETECTION_LOAD));
-      Serial.print("\t");
-      Serial.println(loadPrecedent);
+    //      Serial.print((loadActuel - RANGE_DETECTION_LOAD));
+    //      Serial.print("\t");
+    //      Serial.println(loadPrecedent);
+    // if (Serial1.available() > 0) {
+    //   if (Serial1.read() == 's') {
+    //     dxl.setGoalVelocity(DXL_ID1, 0);
+    //     dxl.setGoalVelocity(DXL_ID2, 0);
+    //     Serial.println("yo");
+    //     return 0;
+    //   }
+    // }
+
+    if (Serial.available()) {
+      Serial.read();
+      dxl.setGoalVelocity(DXL_ID1, 0);
+      dxl.setGoalVelocity(DXL_ID2, 0);
+      // dxl.torqueOff(DXL_ID1);
+      // dxl.torqueOff(DXL_ID2);
+      Serial.println("yo");
+      return 0;
+    }
+
+
+    Serial.print(dxl.getPresentCurrent(DXL_ID1));
+    Serial.print("\t");
+    Serial.print(dxl.getPresentCurrent(DXL_ID2));
+    Serial.print("\t");
+    Serial.println(dxl.getPresentCurrent(DXL_ID2) - dxl.getPresentCurrent(DXL_ID1));
+
     if (millis() - tempsActuel > PERIODE) {
       // Serial.print(loadPrecedent);
       // Serial.print("\t");
@@ -75,9 +117,10 @@ bool sauterUneFois(float RPMGOAL) {
       loadPrecedent = loadActuel;
       tempsActuel = millis();
     }
-    loadActuel = dxl.getPresentCurrent(DXL_ID);
+    loadActuel = dxl.getPresentCurrent(DXL_ID1);
   }
-  dxl.setGoalVelocity(DXL_ID, 0);
+  dxl.setGoalVelocity(DXL_ID1, 0);
+  dxl.setGoalVelocity(DXL_ID2, 0);
   return 1;
 }
 
@@ -88,12 +131,12 @@ bool sauterUneFois(float RPMGOAL) {
 
 
 /*
-void mainControleDynamixel(int Percent) {
+  void mainControleDynamixel(int Percent) {
   // Set Goal Velocity using RPM
   dxl.setGoalVelocity(DXL_ID, 25.8, UNIT_RPM);
   delay(1000);
   DEBUG_SERIAL.print("Present Velocity(rpm) : ");
   DEBUG_SERIAL.println(dxl.getPresentVelocity(DXL_ID, UNIT_RPM));
   delay(1000);
-}
+  }
 */
