@@ -8,7 +8,7 @@ from PIL import Image
 import asyncio
 from bleak import BleakScanner, BleakClient, discover
 import threading
-import animationv2 as animation
+import animationv3 as animation
 import time
     
 device_address = "94:A9:A8:3A:52:90"
@@ -145,8 +145,6 @@ class App(customtkinter.CTk):
         self.navigation_frame.grid_rowconfigure(2, weight=1)
 
          # create animation frame
-        # self.animation_canvas = animation.canvas(self)
-        # self.animation_canvas.grid(row=0, column=5, sticky="nsew")
 
 
         self.navigation_frame_label = customtkinter.CTkLabel(self.navigation_frame, text=" jumpy",
@@ -207,6 +205,10 @@ class App(customtkinter.CTk):
         # select default frame
         self.select_frame_by_name("home")
 
+    def run_animation(self):
+        root = customtkinter.CTk()
+        player = animation.AnimationPlayer(root, fps=30, num_frames=300, frame_prefix="animation1-")
+        player.start()
     def select_frame_by_name(self, name):
         # set button color for selected button
         self.home_button.configure(fg_color=("gray75", "gray25") if name == "home" else "transparent")
@@ -255,6 +257,7 @@ class App(customtkinter.CTk):
 if __name__ == "__main__":
 
     app = App()
+    app.run_animation()
     app.mainloop()
 
 
