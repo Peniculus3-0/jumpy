@@ -8,12 +8,13 @@ from PIL import Image
 import asyncio
 from bleak import BleakScanner, BleakClient, discover
 import threading
-import animationv3 as animation
+import animationv4
 import time
     
 device_address = "94:A9:A8:3A:52:90"
 CHARACTERISTIC_UUID = "0000ffe1-0000-1000-8000-00805f9b34fb"
-message = 'N'
+message = 's'
+stop = 'e'
 label_text = " "
 device_list = []
 combo_box_values = []
@@ -73,47 +74,24 @@ async def start_connecting(device_address):
     await connect_to_device(device_address)
 
 async def connect_to_device(message):
-    # print("Connecting to device")
-    # async with BleakClient(device_address) as client:
-    #     # do something with the client connection
-    #     if client.is_connected:
-    #         print(f"Connected to {device_address}")
-    #         services = client.services
-    #         print("Services:")
-    #         for service in services:
-    #             print(service)
+    print("Connecting to device")
+    async with BleakClient(device_address) as client:
+        # do something with the client connection
+        if client.is_connected:
+            # print(f"Connected to {device_address}")
+            # services = client.services
+            # print("Services:")
+            # for service in services:
+            #     print(service)
+            app.label_avertissement.configure(text="sending message")
+            await client.write_gatt_char(CHARACTERISTIC_UUID, bytearray(message.encode()))
+        else:
+            app.label_avertissement.configure(text="Not Connected")
             
-    #         await client.write_gatt_char(CHARACTERISTIC_UUID, bytearray(message.encode()))
-    #     else:
-    time.sleep(10)
-    app.label_avertissement.configure(text="Not Connected")
-            
-class RadioButtonFrame(customtkinter.CTkFrame):
-    def __init__(self, *args, header_name="RadioButtonFrame", **kwargs):
-        super().__init__(*args, **kwargs)
-        
-        self.header_name = header_name
 
-        self.header = customtkinter.CTkLabel(self, text=self.header_name)
-        self.header.grid(row=0, column=0, padx=10, pady=10)
-
-        self.radio_button_var = customtkinter.StringVar(value="")
-
-        self.radio_button_1 = customtkinter.CTkRadioButton(self, text="Option 1", value="Option 1", variable=self.radio_button_var)
-        self.radio_button_1.grid(row=1, column=0, padx=10, pady=10)
-        self.radio_button_2 = customtkinter.CTkRadioButton(self, text="Option 2", value="Option 2", variable=self.radio_button_var)
-        self.radio_button_2.grid(row=2, column=0, padx=10, pady=10)
-        self.radio_button_3 = customtkinter.CTkRadioButton(self, text="Option 3", value="Option 3", variable=self.radio_button_var)
-        self.radio_button_3.grid(row=3, column=0, padx=10, pady=(10, 20))
-
-    def get_value(self):
-        """ returns selected value as a string, returns an empty string if nothing selected """
-        return self.radio_button_var.get()
-
-    def set_value(self, selection):
-        """ selects the corresponding radio button, selects nothing if no corresponding radio button """
-        self.radio_button_var.set(selection)
-
+def setlabel():
+   for thread in threading.enumerate(): 
+    print(thread.name)
 
 
 class App(customtkinter.CTk):
@@ -177,22 +155,25 @@ class App(customtkinter.CTk):
 
         self.jump_button = customtkinter.CTkButton(self.home_frame, text="JUMP",font=button_font, compound="bottom", height=60, width=200, command=lambda: threading.Thread(target=connect_to_device_async, args=(message)).start())
         self.jump_button.grid(row=0, column=0, padx=40, pady=20)
-
+        self.jump_button = customtkinter.CTkButton(self.home_frame, text="send",font=button_font, compound="bottom", height=60, width=200, command=lambda: threading.Thread(target=setlabel, args=()).start())
+        self.jump_button.grid(row=2, column=0, padx=40, pady=20)
+        self.text=customtkinter.CTkTextbox(self.home_frame, height=1, width=100)
+        self.text.grid(row=1, column=0, padx=40, pady=20)
         self.find_button = customtkinter.CTkButton(self.home_frame, text="Find", font=button_font, compound="bottom", height=60, width=200, command=lambda: threading.Thread(target=start_scanning_async, args=(device_list)).start())
         self.find_button.grid(row=3, column=0, padx=40, pady=20)
         # self.hello_buttun = customtkinter.CTkButton(self.home_frame, text="Hello", font=button_font, compound="bottom", height=60, width=200, command=animation.print)
         # self.hello_buttun.grid(row=1, column=0, padx=40, pady=20)
         self.label_avertissement = customtkinter.CTkLabel(self.home_frame, text=label_text, font=label_font)
-        self.label_avertissement.grid(row=1, column=0, padx=20, pady=20)
+        self.label_avertissement.grid(row=5, column=0, padx=20, pady=20)
 
         # self.textbox = customtkinter.CTkTextbox(self.home_frame, width=400, corner_radius=0)
         # self.textbox.grid(row=5, column=0, sticky="n", padx=20, pady=20)
 
-        self.combobox = customtkinter.CTkComboBox(self.home_frame,  values=["Device"])
-        self.combobox.grid(row=5, column=0, sticky="n", padx=20, pady=20)
+        # self.combobox = customtkinter.CTkComboBox(self.home_frame,  values=["Device"])
+        # self.combobox.grid(row=5, column=0, sticky="n", padx=20, pady=20)
 
-        self.robot_label = customtkinter.CTkLabel(self.home_frame, image=self.robot_image, text=None)
-        self.robot_label.grid(row=2, column=0)
+        # self.robot_label = customtkinter.CTkLabel(self.home_frame, image=self.robot_image, text=None)
+        # self.robot_label.grid(row=2, column=0)
 
 # if multiple frame
 
@@ -203,31 +184,30 @@ class App(customtkinter.CTk):
         self.third_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
 
         # select default frame
-        self.select_frame_by_name("home")
+        # self.select_frame_by_name("home")
 
-    def run_animation(self):
-        root = customtkinter.CTk()
-        player = animation.AnimationPlayer(root, fps=30, num_frames=300, frame_prefix="animation1-")
-        player.start()
-    def select_frame_by_name(self, name):
+    
+        player = animationv4.Animation(self.home_frame)
+        player.grid(row=1, column=0, sticky="nsew")
+
         # set button color for selected button
-        self.home_button.configure(fg_color=("gray75", "gray25") if name == "home" else "transparent")
+        # self.home_button.configure(fg_color=("gray75", "gray25") if name == "home" else "transparent")
         # self.frame_2_button.configure(fg_color=("gray75", "gray25") if name == "frame_2" else "transparent")
         # self.frame_3_button.configure(fg_color=("gray75", "gray25") if name == "frame_3" else "transparent")
 
         # show selected frame
-        if name == "home":
-            self.home_frame.grid(row=0, column=1, sticky="nsew")
-        else:
-            self.home_frame.grid_forget()
-        if name == "frame_2":
-            self.second_frame.grid(row=0, column=1, sticky="nsew")
-        else:
-            self.second_frame.grid_forget()
-        if name == "frame_3":
-            self.third_frame.grid(row=0, column=1, sticky="nsew")
-        else:
-            self.third_frame.grid_forget()
+   
+        self.home_frame.grid(row=0, column=1, sticky="nsew")
+        # else:
+        #     self.home_frame.grid_forget()
+        # if name == "frame_2":
+        #     self.second_frame.grid(row=0, column=1, sticky="nsew")
+        # else:
+        #     self.second_frame.grid_forget()
+        # if name == "frame_3":
+        #     self.third_frame.grid(row=0, column=1, sticky="nsew")
+        # else:
+        #     self.third_frame.grid_forget()
 
 
 
@@ -257,7 +237,6 @@ class App(customtkinter.CTk):
 if __name__ == "__main__":
 
     app = App()
-    app.run_animation()
     app.mainloop()
 
 
