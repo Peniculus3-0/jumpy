@@ -189,6 +189,7 @@ class App(customtkinter.CTk):
     
         player = animationv4.Animation(self.home_frame)
         player.grid(row=1, column=0, sticky="nsew")
+        player.start()
 
         # set button color for selected button
         # self.home_button.configure(fg_color=("gray75", "gray25") if name == "home" else "transparent")
