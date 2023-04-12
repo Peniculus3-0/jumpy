@@ -153,6 +153,7 @@ class App(customtkinter.CTk):
         # self.connect_button.grid(row=2, column=0, padx=20, pady=10)
        
 
+
         self.jump_button = customtkinter.CTkButton(self.home_frame, text="JUMP",font=button_font, compound="bottom", height=60, width=200, command=lambda: threading.Thread(target=connect_to_device_async, args=(message)).start())
         self.jump_button.grid(row=0, column=0, padx=40, pady=20)
         self.jump_button = customtkinter.CTkButton(self.home_frame, text="send",font=button_font, compound="bottom", height=60, width=200, command=lambda: threading.Thread(target=setlabel, args=()).start())
@@ -186,10 +187,16 @@ class App(customtkinter.CTk):
         # select default frame
         # self.select_frame_by_name("home")
 
-    
-        player = animationv4.Animation(self.home_frame)
-        player.grid(row=1, column=0, sticky="nsew")
-        player.start()
+
+        # if jump is called :
+        #jump_animation = animationv4.Animation(self.home_frame, fps = 30, num_frames = 439, frame_prefix = "animation5-")
+        #jump_animation.grid(row=1, column=0, sticky="nsew")
+        #jump_animation.start()
+        
+        animation = animationv4.Animation(self.home_frame)
+
+        animation.grid(row=1, column=0, sticky="nsew")
+
 
         # set button color for selected button
         # self.home_button.configure(fg_color=("gray75", "gray25") if name == "home" else "transparent")
@@ -236,7 +243,6 @@ class App(customtkinter.CTk):
         asyncio.run(self.discover_devices())
 
 if __name__ == "__main__":
-
     app = App()
     app.mainloop()
 
