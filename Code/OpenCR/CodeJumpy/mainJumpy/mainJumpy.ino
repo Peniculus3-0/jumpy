@@ -2,13 +2,8 @@
 #include "ControleFlywheel.h"
 #include "main.h"
 #include "Bluetooth.h"
-// void setupBluetooth();
-// void readBluetooth();
 volatile char instruction;
 const int PERIODE_BLUETOOTH = 10;  //ms
-// enum { saute,
-//        tourne,
-//        wait };
 
 HardwareTimer Timer(TIMER_CH1);
 
@@ -21,32 +16,31 @@ void setup() {
   Timer.start();
   setupControleDynamixel();
   setupControleFlywheel();
- 
- 
 }
 
-void loop() {  
-  if(Serial.available())//Select "No Line Ending" in Serial Monitor
-{ 
-  
-  Serial.read();
-  sauterUneFois(4);  
-}
-// sauter();
+void loop() {
+  if (Serial.available())  //Select "No Line Ending" in Serial Monitor
+  {
+
+    char com = Serial.read();
+    if (com == 'm' ) {
+      Serial.println("Message m sent");
+      char mes = 'v';
+      sendMessage(mes,10);
+    } else
+      jump(8);
+  }
+  // sauter();
   // switch (instruction) {
 
   //   case 's':
-  //     sauterUneFois(6);
+  //     jump(6);
   //     instruction = 'w';
   //     break;
 
   //   case 't':
-  //     //fonction tourner(angle)
+  //     //fonction turn(angle)
   //     instruction = 'w';
   //     break;
   // }
 }
-
-
-
-
