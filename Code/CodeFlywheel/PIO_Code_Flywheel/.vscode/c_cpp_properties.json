@@ -1,0 +1,60 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "D:/GitKrakenRepos/jumpy/Code/CodeFlywheel/PIO_Code_Flywheel/include",
+                "D:/GitKrakenRepos/jumpy/Code/CodeFlywheel/PIO_Code_Flywheel/src",
+                "D:/GitKrakenRepos/jumpy/Code/CodeFlywheel/PIO_Code_Flywheel/.pio/libdeps/mega/Servo/src",
+                "D:/GitKrakenRepos/jumpy/Code/CodeFlywheel/PIO_Code_Flywheel/.pio/libdeps/mega/U8g2/src",
+                "C:/Users/loicc/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "C:/Users/loicc/.platformio/packages/framework-arduino-avr/variants/mega",
+                "C:/Users/loicc/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "C:/Users/loicc/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                "C:/Users/loicc/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "C:/Users/loicc/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                "C:/Users/loicc/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "D:/GitKrakenRepos/jumpy/Code/CodeFlywheel/PIO_Code_Flywheel/include",
+                    "D:/GitKrakenRepos/jumpy/Code/CodeFlywheel/PIO_Code_Flywheel/src",
+                    "D:/GitKrakenRepos/jumpy/Code/CodeFlywheel/PIO_Code_Flywheel/.pio/libdeps/mega/Servo/src",
+                    "D:/GitKrakenRepos/jumpy/Code/CodeFlywheel/PIO_Code_Flywheel/.pio/libdeps/mega/U8g2/src",
+                    "C:/Users/loicc/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "C:/Users/loicc/.platformio/packages/framework-arduino-avr/variants/mega",
+                    "C:/Users/loicc/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "C:/Users/loicc/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    "C:/Users/loicc/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "C:/Users/loicc/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    "C:/Users/loicc/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=60106",
+                "ARDUINO_AVR_MEGA2560",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10808",
+                "__AVR_ATmega2560__",
+                ""
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "C:/Users/loicc/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe",
+            "compilerArgs": [
+                "-mmcu=atmega2560",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
