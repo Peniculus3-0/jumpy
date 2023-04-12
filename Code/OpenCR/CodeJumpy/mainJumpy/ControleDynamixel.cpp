@@ -1,7 +1,6 @@
 #include "actuator.h"
 #include "Dynamixel2Arduino.h"
 #include "ControleDynamixel.h"
-#include "actuator.h"
 
 #if defined(ARDUINO_OpenCR)  // When using official ROBOTIS board with DXL circuit.
 // For OpenCR, there is a DXL Power Enable pin, so you must initialize and control it.
@@ -77,7 +76,8 @@ bool sauterUneFois(float RPMGOAL) {
 
   DEBUG_SERIAL.println(dxl.getPresentCurrent(DXL_ID1));
   DEBUG_SERIAL.println(dxl.getPresentCurrent(DXL_ID2));
-
+  float currentdx1 = 0;
+  float currentdx2 = 0;
 
   tempsActuel = millis();
   while ((loadActuel - RANGE_DETECTION_LOAD) < loadPrecedent) {
@@ -92,6 +92,16 @@ bool sauterUneFois(float RPMGOAL) {
     //     return 0;
     //   }
     // }
+    currentdx1 = dxl.getPresentCurrent(DXL_ID1);
+    currentdx2 = dxl.getPresentCurrent(DXL_ID2);
+
+    if ((abs(currentdx1) + abs(currentdx2)) >= 600) {
+      dxl.setGoalVelocity(DXL_ID1, 0);
+      dxl.setGoalVelocity(DXL_ID2, 0);
+      dxl.torqueOff(DXL_ID1);
+      dxl.torqueOff(DXL_ID2);
+      return 0;
+    }
 
     if (Serial.available()) {
       Serial.read();
@@ -104,11 +114,13 @@ bool sauterUneFois(float RPMGOAL) {
     }
 
 
-    Serial.print(dxl.getPresentCurrent(DXL_ID1));
+    Serial.print(currentdx1);
     Serial.print("\t");
-    Serial.print(dxl.getPresentCurrent(DXL_ID2));
+    Serial.print(currentdx1);
     Serial.print("\t");
-    Serial.println(dxl.getPresentCurrent(DXL_ID2) - dxl.getPresentCurrent(DXL_ID1));
+    Serial.print(currentdx2 - currentdx1);
+    Serial.print("\t");
+    Serial.println(abs(currentdx2) + abs(currentdx1));
 
     if (millis() - tempsActuel > PERIODE) {
       // Serial.print(loadPrecedent);
@@ -117,7 +129,7 @@ bool sauterUneFois(float RPMGOAL) {
       loadPrecedent = loadActuel;
       tempsActuel = millis();
     }
-    loadActuel = dxl.getPresentCurrent(DXL_ID1);
+    loadActuel = currentdx1;
   }
   dxl.setGoalVelocity(DXL_ID1, 0);
   dxl.setGoalVelocity(DXL_ID2, 0);
