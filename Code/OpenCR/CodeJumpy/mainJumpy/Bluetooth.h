@@ -7,5 +7,6 @@
 
 void setupBluetooth();
 void readBluetooth();
+void sendMessage(char message,int position);
 
 #endif

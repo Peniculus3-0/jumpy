@@ -5,8 +5,8 @@
 #include "main.h"
 void setupControleDynamixel();
 void mainControleDynamixel(int);
-bool sauterUneFois(float);
-//void sauter();
+bool jump(float);
+
 
 
 #endif
