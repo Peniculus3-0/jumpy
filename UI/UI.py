@@ -10,7 +10,11 @@ from bleak import BleakScanner, BleakClient, discover
 import threading
 import animationv4
 import time
-    
+import logging
+import BluetoothUI
+
+logging.basicConfig(level=logging.DEBUG, filename='UI.log',format='%(asctime)s:%(levelname)s:%(message)s')
+
 device_address = "94:A9:A8:3A:52:90"
 CHARACTERISTIC_UUID = "0000ffe1-0000-1000-8000-00805f9b34fb"
 message = 's'
@@ -18,76 +22,8 @@ stop = 'e'
 label_text = " "
 device_list = []
 combo_box_values = []
-class BLEScanner: 
-    def __init__(self, device_list):
-        self.device_list = device_list
-        
-    async def scan_devices(self):
-        devices = await discover()
-        self.device_list.extend(devices)
 
-async def start_scanning(device_list):
-    print("start scanning")
-    scanner = BLEScanner(device_list)
-    await scanner.scan_devices()
-    print("scan finished-----")
-    
-def on_scan_finished(device_list):
-    print("Scan finished.")
-    for dev in device_list:
-        print("Device %s, name=%s " % (dev.address, dev.name))
-        # app.textbox.insert(tk.END, "Device %s, Name=%s \n" % (dev.address, dev.name))
-        if dev.name != None:
-            combo_box_values.append(dev.address + " " + str(dev.name))
 
-    if combo_box_values != []:
-        app.label_avertissement.configure(text="Select a device")
-        app.combobox.configure(state="readonly")
-        app.combobox.configure(values=(combo_box_values))
-        # app.button_scan.configure(state="disabled")
-        # app.button_connect.configure(state="normal")
-    else:
-        app.label_avertissement.configure(text="No device found")
-        # app.button_scan.configure(state="normal")
-        # app.button_connect.configure(state="disabled")
-        app.combobox.configure(state="disabled")
-        app.combobox.configure(values=[])
-        app.combobox.set("")
-    
- 
-        
-
-def start_scanning_async():
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(start_scanning(device_list))
-    loop.close()
-    on_scan_finished(device_list)
-
-def connect_to_device_async(device_address):
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(start_connecting(device_address))
-    loop.close()
-
-async def start_connecting(device_address):
-    await connect_to_device(device_address)
-
-async def connect_to_device(message):
-    print("Connecting to device")
-    async with BleakClient(device_address) as client:
-        # do something with the client connection
-        if client.is_connected:
-            # print(f"Connected to {device_address}")
-            # services = client.services
-            # print("Services:")
-            # for service in services:
-            #     print(service)
-            app.label_avertissement.configure(text="sending message")
-            await client.write_gatt_char(CHARACTERISTIC_UUID, bytearray(message.encode()))
-        else:
-            app.label_avertissement.configure(text="Not Connected")
-            
 
 def setlabel():
    for thread in threading.enumerate(): 
@@ -105,7 +41,7 @@ class App(customtkinter.CTk):
 
         # set grid layout 1x2
         self.grid_rowconfigure(0, weight=1)
-        self.grid_columnconfigure(1, weight=1)
+        self.grid_columnconfigure(2, weight=1)
 
        
 
@@ -153,18 +89,24 @@ class App(customtkinter.CTk):
         # self.connect_button.grid(row=2, column=0, padx=20, pady=10)
        
 
-        self.jump_button = customtkinter.CTkButton(self.home_frame, text="JUMP",font=button_font, compound="bottom", height=60, width=200, command=lambda: threading.Thread(target=connect_to_device_async, args=(message)).start())
+        self.jump_button = customtkinter.CTkButton(self.home_frame, text="JUMP",font=button_font, compound="bottom", height=60, width=200, 
+                                                   command=lambda: threading.Thread(target=BluetoothUI.connect_to_device_async, args=(message)).start()) ## Pour commencer un thread ne pas mettre () après la fonction
+        
         self.jump_button.grid(row=0, column=0, padx=40, pady=20)
-        self.jump_button = customtkinter.CTkButton(self.home_frame, text="send",font=button_font, compound="bottom", height=60, width=200, command=lambda: threading.Thread(target=setlabel, args=()).start())
+
+        self.jump_button = customtkinter.CTkButton(self.home_frame, text="send",font=button_font, compound="bottom", height=60, width=200, 
+                                                   command=lambda: threading.Thread(target=setlabel, args=()).start())
+        
         self.jump_button.grid(row=2, column=0, padx=40, pady=20)
+
         self.text=customtkinter.CTkTextbox(self.home_frame, height=1, width=100)
         self.text.grid(row=1, column=0, padx=40, pady=20)
-        self.find_button = customtkinter.CTkButton(self.home_frame, text="Find", font=button_font, compound="bottom", height=60, width=200, command=lambda: threading.Thread(target=start_scanning_async, args=(device_list)).start())
+        self.find_button = customtkinter.CTkButton(self.home_frame, text="Find", font=button_font, compound="bottom", height=60, width=200, 
+                                                   command=lambda: threading.Thread(target=start_scanning_async, args=(device_list)).start())
         self.find_button.grid(row=3, column=0, padx=40, pady=20)
-        # self.hello_buttun = customtkinter.CTkButton(self.home_frame, text="Hello", font=button_font, compound="bottom", height=60, width=200, command=animation.print)
-        # self.hello_buttun.grid(row=1, column=0, padx=40, pady=20)
+     
         self.label_avertissement = customtkinter.CTkLabel(self.home_frame, text=label_text, font=label_font)
-        self.label_avertissement.grid(row=5, column=0, padx=20, pady=20)
+        self.label_avertissement.grid(row=5, column=2, padx=20, pady=20)
 
         # self.textbox = customtkinter.CTkTextbox(self.home_frame, width=400, corner_radius=0)
         # self.textbox.grid(row=5, column=0, sticky="n", padx=20, pady=20)
@@ -189,7 +131,6 @@ class App(customtkinter.CTk):
     
         player = animationv4.Animation(self.home_frame)
         player.grid(row=1, column=0, sticky="nsew")
-        player.start()
 
         # set button color for selected button
         # self.home_button.configure(fg_color=("gray75", "gray25") if name == "home" else "transparent")
@@ -224,16 +165,7 @@ class App(customtkinter.CTk):
     def change_appearance_mode_event(self, new_appearance_mode):
         customtkinter.set_appearance_mode(new_appearance_mode)
 
-    async def discover_devices(self):
-        
-        devices = await discover()
-        print("Discovered devices:")
-        for device in devices:
-            print(device)
-        self.progress.stop()
-    
-    def connect(self):
-        asyncio.run(self.discover_devices())
+
 
 if __name__ == "__main__":
 

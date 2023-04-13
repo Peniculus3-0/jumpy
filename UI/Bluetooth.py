@@ -4,7 +4,7 @@ from bleak import BleakScanner, BleakClient, discover
 
 address = "94:A9:A8:3A:52:90"
 uuid = '0000ffe1-0000-1000-8000-00805f9b34fb'
-uuid_battery_level_characteristic = '00002a19-0000-1000-8000-00805f9b34fb'
+CHARACTERISTIC_UUID = "0000ffe1-0000-1000-8000-00805f9b34fb"
 message = 'F'
 global Device_not_found 
 
@@ -63,7 +63,61 @@ async def connect_to_device(device_address):
             print(service)
 
 
+async def read_ble_device(device_address, uuid):
+    async with BleakClient(device_address) as client:
+        print("connection_status")
+        #await client.connect()
+        print("Connected to device")
+        
+        # Read data from the characteristic or descriptor with the given UUID
+
+        await client.start_notify(client.read_characteristic, client.notification_handler)
+        # Process the data as needed
+
+async def connect(self):
+        if self.connected:
+            return
+        try:
+            await self.client.connect()
+            self.connected = await self.client.is_connected()
+            if self.connected:
+                print(f"Connected to {self.connected_device.name}")
+                self.client.set_disconnected_callback(self.on_disconnect)
+                await self.client.start_notify(
+                    self.read_characteristic, self.notification_handler,
+                )
+                while True:
+                    if not self.connected:
+                        break
+                    await asyncio.sleep(5.0, loop=loop)
+            else:
+                print(f"Failed to connect to {self.connected_device.name}")
+        except Exception as e:
+            print(e)
+
+def callback(sender , data):
+
+    data1 = data.decode("utf-8")
+    print(f"{data1}")
 
 
-loop = asyncio.get_event_loop()
-loop.run_until_complete(write())
+
+async def main():
+    client = BleakClient(address)
+    await client.connect()
+    print("connected")
+       
+            #await client.star(uuid, callback)
+    await client.start_notify(uuid, callback)
+    while True:
+        await asyncio.sleep(1)
+        #print("data: {0}".format("".join(map(chr, data))))
+   
+
+asyncio.run(main())
+
+
+
+#loop = asyncio.get_event_loop()
+# futur=asyncio.ensure_future(main())
+# asyncio.run(futur)
