@@ -26,7 +26,11 @@ device_list = []
 combo_box_values = []
 
 
-
+def on_closing():
+    global client  # Use the global BleakClient instance
+    print("Closing window...")
+    app.animation.boolean()
+    app.destroy()  # Close the application window
 
 
 def setlabel():
@@ -129,6 +133,24 @@ class App(customtkinter.CTk):
         self.jump_button_right.grid(row=0, column=2, padx=40, pady=20)
         self.stop_button.grid(row=1, column=1, padx=40, pady=20)
 
+        self.animation = animationv4.Animation(self.home_frame)
+        self.animation.grid(row=2, column=1, )
+
+        self.idle_temp = threading.Thread(target=self.animation.idle)
+        self.idle_temp.start()
+        self.protocol("WM_DELETE_WINDOW", on_closing)
+        def animation_jump():
+            print("allo")
+            self.jump = threading.Thread(target=self.animation.jump)
+            self.idle = threading.Thread(target=self.animation.idle)
+            self.animation.boolean()
+            self.jump.start()
+            self.home_frame.after(1000,self.animation.boolean_false)
+
+        self.animation_button = customtkinter.CTkButton(self.home_frame,
+                                                   text="animation", font=button_font, compound="bottom",height=60, width=200,command=lambda: animation_jump())
+        self.animation_button.grid(row=2, column=0, padx=40, pady=20)
+
         self.read_button = customtkinter.CTkButton(self.home_frame, text="READ",font=button_font, compound="bottom", height=60, width=200, 
                                                    command=lambda: threading.Thread(target=BluetoothUI.read_device_async, args=(self,)).start())
         self.read_button.grid(row=1, column=2, padx=40, pady=20)
@@ -139,10 +161,10 @@ class App(customtkinter.CTk):
         self.find_button.grid(row=1, column=0, padx=40, pady=20)
      
         self.label_avertissement = customtkinter.CTkLabel(self.home_frame, text=label_text, font=label_font)
-        self.label_avertissement.grid(row=2, column=1, padx=20, pady=20)
+        self.label_avertissement.grid(row=3, column=1, padx=20, pady=20)
 
         self.combobox = customtkinter.CTkComboBox(self.home_frame)
-        self.combobox.grid(row=3, column=1, padx=20, pady=20)
+        self.combobox.grid(row=3, column=0, padx=20, pady=20)
     
    
         self.home_frame.grid(row=0, column=1, sticky="nsew")
