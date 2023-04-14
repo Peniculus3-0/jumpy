@@ -110,40 +110,48 @@ class App(customtkinter.CTk):
         self.home_frame.grid_columnconfigure(0, weight=1)
         self.home_frame.grid_rowconfigure(2, weight=1)
 
-        self.motor_panel = MotorPanel(self.home_frame)
+        self.motor_panel = MotorPanel(self.navigation_frame)
         self.motor_panel.grid(row=2, column=0, padx=20, pady=20, sticky="nsew")
         self.motor_panel.set_speed(0)
 
         
 
-        self.jump_button = customtkinter.CTkButton(self.home_frame, text="JUMP",font=button_font, compound="bottom", height=60, width=200, 
-                                                   command=lambda: threading.Thread(target=BluetoothUI.connect_to_device_async, args=(message)).start()) ## Pour commencer un thread ne pas mettre () après la fonction
-        
-        self.jump_button.grid(row=0, column=0, padx=40, pady=20)
-
-        self.jump_button = customtkinter.CTkButton(self.home_frame, text="send",font=button_font, compound="bottom", height=60, width=200, 
-                                                   command=lambda: threading.Thread(target=setlabel, args=()).start())
-        
+        self.jump_button = customtkinter.CTkButton(self.home_frame, text="JUMP",font=button_font, compound="bottom", height=60, width=200, state="disabled",
+                                                   command=lambda: threading.Thread(target=BluetoothUI.connect_to_device_async, args=(self,'j',)).start()) ## Pour commencer un thread ne pas mettre () après la fonction
+        self.jump_button_left = customtkinter.CTkButton(self.home_frame, text="JUMP LEFT",font=button_font, compound="bottom", height=60, width=200, state="disabled",
+                                                   command=lambda: threading.Thread(target=BluetoothUI.connect_to_device_async, args=(self,'l',)).start())
+        self.jump_button_right = customtkinter.CTkButton(self.home_frame, text="JUMP RIGHT",font=button_font, compound="bottom", height=60, width=200, state="disabled",
+                                                   command=lambda: threading.Thread(target=BluetoothUI.connect_to_device_async, args=(self,'r',)).start())
+        self.stop_button = customtkinter.CTkButton(self.home_frame, text="STOP",font=button_font, compound="bottom", height=60, width=200, state="normal",
+                                                   command=lambda: threading.Thread(target=BluetoothUI.connect_to_device_async, args=(self,'s',)).start())
         self.jump_button.grid(row=0, column=1, padx=40, pady=20)
+        self.jump_button_left.grid(row=0, column=0, padx=40, pady=20)
+        self.jump_button_right.grid(row=0, column=2, padx=40, pady=20)
+        self.stop_button.grid(row=1, column=1, padx=40, pady=20)
 
-        self.text=customtkinter.CTkTextbox(self.home_frame, height=1, width=100)
-        self.text.grid(row=1, column=0, padx=40, pady=20)
+        self.read_button = customtkinter.CTkButton(self.home_frame, text="READ",font=button_font, compound="bottom", height=60, width=200, 
+                                                   command=lambda: threading.Thread(target=BluetoothUI.read_device_async, args=(self,)).start())
+        self.read_button.grid(row=1, column=2, padx=40, pady=20)
+
+
         self.find_button = customtkinter.CTkButton(self.home_frame, text="Scan", font=button_font, compound="bottom", height=60, width=200, 
                                                    command=lambda: BluetoothUI.thread_scan_devices(self, device_list)) #mettre une virgule après args sinon ça ne marche pas
-        self.find_button.grid(row=0, column=2, padx=40, pady=20)
+        self.find_button.grid(row=1, column=0, padx=40, pady=20)
      
         self.label_avertissement = customtkinter.CTkLabel(self.home_frame, text=label_text, font=label_font)
-        self.label_avertissement.grid(row=1, column=1, padx=20, pady=20)
+        self.label_avertissement.grid(row=2, column=1, padx=20, pady=20)
 
-        self.combobox = customtkinter.CTkComboBox(self.home_frame,  values=["Device"])
+        self.combobox = customtkinter.CTkComboBox(self.home_frame)
         self.combobox.grid(row=3, column=1, padx=20, pady=20)
-
+    
    
         self.home_frame.grid(row=0, column=1, sticky="nsew")
         
 
     def change_appearance_mode_event(self, new_appearance_mode):
         customtkinter.set_appearance_mode(new_appearance_mode)
+
+ 
 
 
 if __name__ == "__main__":
