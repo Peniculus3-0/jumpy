@@ -43,4 +43,10 @@ SYSTÈME DE STABILISATION:
 
 3. Assembler les pièces imprimées et les bâtons
 
-4. 
+
+
+1. Un ordinateur avec Python 3.x installé.
+2. Un dispositif Bluetooth compatible pour contrôler le moteur.
+3. Les modules Python suivants installés : customtkinter, PIL (Pillow), bleak, threading, os, logging, asyncio et turtle.
+
+  pip install requirements.txt
