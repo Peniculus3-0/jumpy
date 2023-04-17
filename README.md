@@ -4,7 +4,7 @@
 
 * Documentation
 	* [UI](/UI#requis)
-	* [code contrôle](/Code/mainJumpy#requis)
+	* [Code contrôle](/Code/mainJumpy#requis)
 		
 
 
