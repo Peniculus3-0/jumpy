@@ -27,17 +27,5 @@
 - Affiche l'animation de repos et de saut du robot dans un frame custom Tkinter à une fréquence spécifié en bouclant les images en mémoire
 - Charge les images dans des dictionnaires pour améliorer les performances
   
-Voici les attributs et les méthodes :
-  
-  1. fps_idle : Nombre d'images secondes de l'animation au repos
-  2. fps_jump : Nombre d'images secondes de l'animation de saut
-  3. bool : booléen pour changer entre les animations
-  4. num_frames_jump : Nombres d'images dans l'animaton de saut
-  5. num_frames_idle : Nombres d'images dans l'animaton de repos
-  6. size_x/size_y : Dimensions de l'animation
-  7. folder_name : Path du dossie avec les images
-  8. frames : Nom des dictionnaires
-  9. idle() : Affiche l'animation au repos
-  10. jump() : Affiche l'anomation de saut
-  11. boolean()/boolean_false() : Modifie bool
+
 
