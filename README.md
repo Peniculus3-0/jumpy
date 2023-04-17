@@ -4,7 +4,6 @@
 
 * Documentation
 	* [UI](/UI#requis)
-	* [Code contrôle](/Code/mainJumpy#requis)
 		
 
 
@@ -42,13 +41,13 @@ BOITE DE CONTROLE:
 
 ## Vidéos
 
-# Démonstration du robot
-[![Démonstration du robot](https://www.youtube.com/shorts/cel7XVDD8pQ/0.jpg)](https://www.youtube.com/shorts/cel7XVDD8pQ)
+#### Démonstration du robot
+[![Démonstration du robot]](https://www.youtube.com/shorts/cel7XVDD8pQ)
 
 
-# Démonstration du saut à une jambe
+#### Démonstration du saut à une jambe
 
-# Démonstration de la roue inertielle
+#### Démonstration de la roue inertielle
 
 
 
