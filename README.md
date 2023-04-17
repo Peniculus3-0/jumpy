@@ -6,7 +6,7 @@ Jumpy est un robot sauteur réalisé dans le cadre du projet de session de la se
 
 * Documentation
 	* [UI](/UI#requis)
-	* [Code contrôle](/Code/mainJumpy#requis)
+	* [Code contrôle](/Code/mainJumpy#code)
 		
 
 
