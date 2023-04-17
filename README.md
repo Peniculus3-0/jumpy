@@ -53,7 +53,7 @@
 - Stopper20deg_REV0_CL (x2)
 - Stopper40deg_REV0_CL (x2)
 
-#### PLAQUES D'ACIER À DÉCOUPER ET PERCER
+##### PLAQUES D'ACIER À DÉCOUPER ET PERCER
 - PlaqueEpaisseFlywheel_CN_V2 (x4)
 - PlaqueMinceFlywheel_CN_V2 (x1)
 
