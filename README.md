@@ -34,7 +34,7 @@ BOITE DE CONTROLE:
 * 1kg de filament (PLA)
 
 ### LISTES DES PIÈCES 
-* Voir le BOM 
+* Voir le [BOM](/BOM.pdf)
 
 ## Code 
   Code pour le openCR
