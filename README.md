@@ -4,7 +4,6 @@
 
 * Documentation
 	* [UI](/UI#requis)
-	* [mainJumpy](/Code/mainJumpy#requis)
 		
 
 
@@ -40,6 +39,15 @@ BOITE DE CONTROLE:
 ## Code 
   Code pour le openCR
 
+## Vidéos
+
+# Démonstration du robot
+[![Démonstration du robot](https://www.youtube.com/shorts/cel7XVDD8pQ/0.jpg)](https://www.youtube.com/shorts/cel7XVDD8pQ)
+
+
+# Démonstration du saut à une jambe
+
+# Démonstration de la roue inertielle
 
 
 
