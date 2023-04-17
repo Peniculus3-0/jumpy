@@ -2,15 +2,7 @@
 
 ## Table des matières
 
-1. [UI](#ui)
-  * [Fonctionnalités](#fonctionnalités)
-  * [Requis](#requis)
-  * [Procédure](#proc-dure)
-2. [SherwoodUptodate](#sherwooduptodate)
-  * [PROCÉDURE:](#proc-dure-)
-  * [PIÈCES À IMPRIMER](#pi-ces---imprimer)
-  * [REQUIS:](#requis-)
-3. [Code](#code)
+
 
 
 ## UI 
