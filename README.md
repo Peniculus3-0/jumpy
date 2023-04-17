@@ -2,16 +2,13 @@
 JUMPY
 ## Table des matières
 
-- [jumpy](#jumpy)
-  * [Table des matières](#table-des-mati-res)
-  * [REQUIS:](##REQUIS:)
-  * [QUINCAILLERIE:](#quincaillerie)
-  * [PROCÉDURE:](#proc-dure-)
-  * [Requis](#requis)
+  - [Table des matières](#table-des-mati-res)
+  - [REQUIS:](##REQUIS:)
+  - [QUINCAILLERIE:](#quincaillerie)
+  - [PROCÉDURE:](#proc-dure-)
+  - [Requis](#requis)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
-PIÈCES ET MATÉRIELS
 
 ## REQUIS:
 
