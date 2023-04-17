@@ -25,7 +25,7 @@
 ### PIÈCES À IMPRIMER
 
 JAMBE:
-« Écrire nom des fichiers avec dossier»
+
 
 BOITE DE CONTROLE:
 « Écrire nom des fichiers avec dossier»
