@@ -30,7 +30,7 @@ BOITE DE CONTROLE:
 « Écrire nom des fichiers avec dossier»
 
 ### REQUIS:
-* 1x Imprimante  3D
+* Une imprimante 3D
 * 1kg de filament (PLA)
 * Un bâton de hockey
 * Pour le reste des pièces, voir le [BOM](/BOM.pdf)
