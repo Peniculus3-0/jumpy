@@ -21,15 +21,19 @@
 5. Couper les bâtons de hockey
 6. Assembler les pièces imprimées et les bâtons
 
-## PIÈCES À IMPRIMER
+## ASSEMBLAGE DU ROBOT
 
 ### JAMBE:
+
+##### PIÈCES À IMPRIMER
 - Pied_V4_ECP (x2)
 - Cheville_REV2_VF (x2)
 - PoulieCheville_V1_CN (x1)
 - JointDouble_REV0_AM (x6)
 
 ### BOITE DE CONTROLE:
+
+##### PIÈCES À IMPRIMER
 - AcrylicCage_V1_CN (x1)
 - ControlBoxFrame_V2_CN (x1)
 - TopFrame_V1_CN_InProgress (x1)
