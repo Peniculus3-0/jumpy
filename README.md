@@ -1,6 +1,8 @@
 # Jumpy
 
 Jumpy est un robot sauteur réalisé dans le cadre du projet de session de la session 4 en Génie Robotique à l'Université de Sherbrooke. 
+
+
 ![JUMPY](Jumpy.jpg)
 
 ## Table des matières
