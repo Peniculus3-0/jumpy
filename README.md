@@ -1,16 +1,39 @@
 # jumpy
-JUMPY
+
 ## Table des matières
 
-  - [Table des matières](#table-des-mati-res)
-  - [REQUIS:](##REQUIS:)
-  - [QUINCAILLERIE:](#quincaillerie)
-  - [PROCÉDURE:](#proc-dure-)
-  - [Requis](#requis)
+* Documentation
+	* [UI](/UI#requis)
+		
+
+
+## UI 
 
 
 
-## REQUIS:
+## SherwoodUptodate
+
+### PROCÉDURE:
+
+1. Imprimer les pièces 3D
+
+2. Couper les bâtons de hockey d’une longueur de 10 cm
+
+3. Assembler les pièces imprimées et les bâtons
+
+### PIÈCES À IMPRIMER
+
+JAMBE:
+« Écrire nom des fichiers avec dossier»
+
+BOITE DE CONTROLE:
+« Écrire nom des fichiers avec dossier»
+
+
+SYSTÈME DE STABILISATION:
+« Écrire nom des fichiers avec dossier»
+
+### REQUIS:
 
 * 1x Imprimante  3D
 * 1 kg PLA
@@ -25,35 +48,10 @@ JUMPY
 * 2x Engrenage 52mm diamètre
 * 1x Module Bluetooth HC06
 
-## quincaillerie
+## Code 
+  Code pour le openCR
 
 
 
-###PIÈCES À IMPRIMER
-
-JAMBE:
-« Écrire nom des fichiers avec dossier»
-
-BOITE DE CONTROLE:
-« Écrire nom des fichiers avec dossier»
 
 
-SYSTÈME DE STABILISATION:
-« Écrire nom des fichiers avec dossier»
-
-
-## PROCÉDURE:
-
-1. Imprimer les pièces 3D
-
-2. Couper les bâtons de hockey d’une longueur de 10 cm
-
-3. Assembler les pièces imprimées et les bâtons
-
-## Requis
-
-1. Un ordinateur avec Python 3.x installé.
-2. Un dispositif Bluetooth compatible pour contrôler le moteur.
-3. Les modules Python suivants installés : customtkinter, PIL (Pillow), bleak, threading, os, logging, asyncio et turtle.
-
-  `pip install requirements.txt`
