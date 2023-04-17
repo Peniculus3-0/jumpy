@@ -32,9 +32,10 @@ BOITE DE CONTROLE:
 ### REQUIS:
 * 1x Imprimante  3D
 * 1kg de filament (PLA)
+* Un bâton de hockey
 
-### LISTES DES PIÈCES 
-* Voir le [BOM](/BOM.pdf)
+## Pour le reste des pièces, voir le [BOM](/BOM.pdf)
+
 
 ## Code 
   Code pour le openCR
