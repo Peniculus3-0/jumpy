@@ -1,9 +1,19 @@
 # jumpy
 JUMPY
+## Table des matières
+
+- [jumpy](#jumpy)
+  * [Table des matières](#table-des-mati-res)
+  * [REQUIS:](##REQUIS:)
+  * [QUINCAILLERIE:](#quincaillerie)
+  * [PROCÉDURE:](#proc-dure-)
+  * [Requis](#requis)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 PIÈCES ET MATÉRIELS
 
-REQUIS:
+## REQUIS:
 
 * 1x Imprimante  3D
 * 1 kg PLA
@@ -18,7 +28,7 @@ REQUIS:
 * 2x Engrenage 52mm diamètre
 * 1x Module Bluetooth HC06
 
-## QUINCAILLERIE:
+## quincaillerie
 
 
 
@@ -43,10 +53,10 @@ SYSTÈME DE STABILISATION:
 
 3. Assembler les pièces imprimées et les bâtons
 
-
+## Requis
 
 1. Un ordinateur avec Python 3.x installé.
 2. Un dispositif Bluetooth compatible pour contrôler le moteur.
 3. Les modules Python suivants installés : customtkinter, PIL (Pillow), bleak, threading, os, logging, asyncio et turtle.
 
-  pip install requirements.txt
+  `pip install requirements.txt`
