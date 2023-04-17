@@ -31,7 +31,10 @@ BOITE DE CONTROLE:
 
 ### REQUIS:
 * 1x Imprimante  3D
-* Liste des pièces : voir le BOM 
+* 1kg de filament (PLA)
+
+### LISTES DES PIÈCES 
+* Voir le BOM 
 
 ## Code 
   Code pour le openCR
