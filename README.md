@@ -17,7 +17,7 @@
 
 1. Imprimer les pièces 3D
 
-2. Couper les bâtons de hockey d’une longueur de 10 cm
+2. Couper les bâtons de hockey
 
 3. Assembler les pièces imprimées et les bâtons
 
