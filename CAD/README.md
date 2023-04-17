@@ -1,5 +1,5 @@
 #CAD
-![Assemblage](PrototypeAssemnblage.png)
+![Assemblage](PrototypeAssemblage.png)
 ## REQUIS
 * Une imprimante 3D
 * Pour le reste des pièces, voir le [BOM](/BOM.pdf)
