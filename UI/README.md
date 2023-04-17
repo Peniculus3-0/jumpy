@@ -12,6 +12,7 @@
 1. Un ordinateur avec Python 3.x installé.
 2. Un dispositif Bluetooth compatible pour contrôler le moteur.
 3. Les modules Python suivants installés : customtkinter, PIL (Pillow), bleak, threading, os, logging, asyncio et turtle.
+4. Lien vers les images des animations : https://drive.google.com/drive/folders/1fHX3-iR9xY-f3sybb7qTc169rCVtT3Wu?usp=sharing
 
   `pip install requirements.txt`
   
@@ -26,6 +27,7 @@
   
 - Affiche l'animation de repos et de saut du robot dans un frame custom Tkinter à une fréquence spécifié en bouclant les images en mémoire
 - Charge les images dans des dictionnaires pour améliorer les performances
+
   
 
 
