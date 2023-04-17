@@ -30,6 +30,7 @@ def on_closing():
     global client  # Use the global BleakClient instance
     print("Closing window...")
     app.animation.boolean()
+    print("Animation stopped")
     app.destroy()  # Close the application window
 
 
@@ -50,10 +51,10 @@ class MotorPanel(customtkinter.CTkFrame):
 
 
         self.speed_label = customtkinter.CTkLabel(self, text="Motor Speed:", )
-        self.speed_label.grid(row=1, column=0, padx=10, pady=10)
+        self.speed_label.grid(row=1, column=0, padx=10, pady=20)
 
         self.torque_label =customtkinter.CTkLabel(self, text="Motor Torque:")
-        self.torque_label.grid(row=2, column=0, padx=10, pady=10)
+        self.torque_label.grid(row=2, column=0, padx=10, pady=20)
     
     def set_torque(self, torque):
         self.torque_label.configure(text= "Motor Speed: "+ str(torque))
@@ -77,31 +78,31 @@ class App(customtkinter.CTk):
         self.geometry("700x450")
         self.iconbitmap(os.path.join(image_path, "logo.ico"))
 
-        button_font = customtkinter.CTkFont(family="Arial", size=20)	
+        button_font = customtkinter.CTkFont(family="Arial", size=20, weight="bold")	
         label_font = customtkinter.CTkFont(family="Arial", size=20)
-
+        label_font2 = customtkinter.CTkFont(family="Arial", size=15)
 
         # set grid layout 1x2
         self.grid_rowconfigure(0, weight=1)
-        self.grid_columnconfigure(2, weight=1)
+        self.grid_columnconfigure(1, weight=1)
 
        
         # create navigation frame
         self.navigation_frame = customtkinter.CTkFrame(self, corner_radius=0, )
         self.navigation_frame.grid(row=0, column=0, sticky="nsew")
-        self.navigation_frame.grid_rowconfigure(2, weight=1)
+        self.navigation_frame.grid_rowconfigure(3, weight=1)
 
 
 
-        self.navigation_frame_label = customtkinter.CTkLabel(self.navigation_frame, text=" jumpy",
-                                                             compound="left", font=button_font)
+        # self.navigation_frame_label = customtkinter.CTkLabel(self.navigation_frame, text=" jumpy",
+        #                                                      compound="left", font=button_font)
         
-        self.navigation_frame_label.grid(row=0, column=0, padx=20, pady=20)
+        # self.navigation_frame_label.grid(row=0, column=0, padx=20, pady=20)
 
-        self.home_button = customtkinter.CTkButton(self.navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Home",
-                                                   fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"))
+        # self.home_button = customtkinter.CTkButton(self.navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Home",
+        #                                            fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"))
                                                    
-        self.home_button.grid(row=1, column=0, sticky="ew")
+        # self.home_button.grid(row=1, column=0, sticky="ew")
 
 
         self.appearance_mode_menu = customtkinter.CTkOptionMenu(self.navigation_frame, values=["Light", "Dark", "System"],
@@ -112,29 +113,40 @@ class App(customtkinter.CTk):
         # create home frame
         self.home_frame = customtkinter.CTkFrame(self, corner_radius=0, bg_color="gray20")
         self.home_frame.grid_columnconfigure(0, weight=1)
-        self.home_frame.grid_rowconfigure(2, weight=1)
+        self.home_frame.grid_rowconfigure(3, weight=1)
+
+        self.jump_frame = customtkinter.CTkFrame(self.home_frame, corner_radius=0, bg_color="transparent", fg_color="transparent")
+        self.jump_frame.grid_columnconfigure(0, weight=1)
+        self.jump_frame.grid_rowconfigure(2, weight=1)
+        
+        self.button_frame = customtkinter.CTkFrame(self.home_frame, corner_radius=0, bg_color="transparent", fg_color="transparent")
+        self.button_frame.grid_columnconfigure(0, weight=1)
+        self.button_frame.grid_rowconfigure(2, weight=1)
+
+        self.combobox_frame = customtkinter.CTkFrame(self.navigation_frame, corner_radius=0, bg_color="transparent", fg_color="transparent")
+        self.button_frame.grid_rowconfigure(1, weight=1)
 
         self.motor_panel = MotorPanel(self.navigation_frame)
-        self.motor_panel.grid(row=2, column=0, padx=20, pady=20, sticky="nsew")
+        self.motor_panel.grid(row=1, column=0, padx=20, pady=20, sticky="nsew")
         self.motor_panel.set_speed(0)
 
         
 
-        self.jump_button = customtkinter.CTkButton(self.home_frame, text="JUMP",font=button_font, compound="bottom", height=60, width=200, state="disabled",
+        self.jump_button = customtkinter.CTkButton(self.jump_frame, text="JUMP",font=button_font, height=60, width=200, state="disabled",
                                                    command=lambda: threading.Thread(target=BluetoothUI.connect_to_device_async, args=(self,'j',)).start()) ## Pour commencer un thread ne pas mettre () après la fonction
-        self.jump_button_left = customtkinter.CTkButton(self.home_frame, text="JUMP LEFT",font=button_font, compound="bottom", height=60, width=200, state="disabled",
+        self.jump_button_left = customtkinter.CTkButton(self.jump_frame, text="JUMP LEFT",font=button_font, height=60, width=200, state="disabled",
                                                    command=lambda: threading.Thread(target=BluetoothUI.connect_to_device_async, args=(self,'l',)).start())
-        self.jump_button_right = customtkinter.CTkButton(self.home_frame, text="JUMP RIGHT",font=button_font, compound="bottom", height=60, width=200, state="disabled",
+        self.jump_button_right = customtkinter.CTkButton(self.jump_frame, text="JUMP RIGHT",font=button_font, height=60, width=200, state="disabled",
                                                    command=lambda: threading.Thread(target=BluetoothUI.connect_to_device_async, args=(self,'r',)).start())
-        self.stop_button = customtkinter.CTkButton(self.home_frame, text="STOP",font=button_font, compound="bottom", height=60, width=200, state="normal",
+        self.stop_button = customtkinter.CTkButton(self.button_frame, text="STOP",font=button_font, compound="bottom", height=60, width=200, state="normal",
                                                    command=lambda: threading.Thread(target=BluetoothUI.connect_to_device_async, args=(self,'s',)).start())
-        self.jump_button.grid(row=0, column=1, padx=40, pady=20)
-        self.jump_button_left.grid(row=0, column=0, padx=40, pady=20)
-        self.jump_button_right.grid(row=0, column=2, padx=40, pady=20)
-        self.stop_button.grid(row=1, column=1, padx=40, pady=20)
+        self.jump_button.grid(row=0, column=1, padx=40, pady=20, sticky="nsew")
+        self.jump_button_left.grid(row=0, column=0, padx=40, pady=20, sticky="n")
+        self.jump_button_right.grid(row=0, column=2, padx=40, pady=20, sticky="s")
+        self.stop_button.grid(row=0, column=1, padx=40, pady=20,    sticky="nsew")
 
         self.animation = animationv4.Animation(self.home_frame)
-        self.animation.grid(row=2, column=1, )
+        self.animation.grid(row=2, column=0, )
 
         self.idle_temp = threading.Thread(target=self.animation.idle)
         self.idle_temp.start()
@@ -147,27 +159,33 @@ class App(customtkinter.CTk):
             self.jump.start()
             self.home_frame.after(1000,self.animation.boolean_false)
 
-        self.animation_button = customtkinter.CTkButton(self.home_frame,
+        self.animation_button = customtkinter.CTkButton(self.button_frame,
                                                    text="animation", font=button_font, compound="bottom",height=60, width=200,command=lambda: animation_jump())
-        self.animation_button.grid(row=2, column=0, padx=40, pady=20)
+        self.animation_button.grid(row=2, column=1, padx=40, pady=20)
 
-        self.read_button = customtkinter.CTkButton(self.home_frame, text="READ",font=button_font, compound="bottom", height=60, width=200, 
+        self.read_button = customtkinter.CTkButton(self.button_frame, text="READ",font=button_font, compound="bottom", height=60, width=200, 
                                                    command=lambda: threading.Thread(target=BluetoothUI.read_device_async, args=(self,)).start())
-        self.read_button.grid(row=1, column=2, padx=40, pady=20)
+        self.read_button.grid(row=0, column=2, padx=40, pady=20)
 
 
-        self.find_button = customtkinter.CTkButton(self.home_frame, text="Scan", font=button_font, compound="bottom", height=60, width=200, 
+        self.find_button = customtkinter.CTkButton(self.button_frame, text="SCAN", font=button_font, compound="bottom", height=60, width=200, 
                                                    command=lambda: BluetoothUI.thread_scan_devices(self, device_list)) #mettre une virgule après args sinon ça ne marche pas
-        self.find_button.grid(row=1, column=0, padx=40, pady=20)
+        self.find_button.grid(row=0, column=0, padx=40, pady=20)
      
-        self.label_avertissement = customtkinter.CTkLabel(self.home_frame, text=label_text, font=label_font)
-        self.label_avertissement.grid(row=3, column=1, padx=20, pady=20)
+        self.label_avertissement = customtkinter.CTkLabel(self.navigation_frame, text=label_text, font=label_font)
+        self.label_avertissement.grid(row=0, column=0, padx=20, pady=20)
 
-        self.combobox = customtkinter.CTkComboBox(self.home_frame)
-        self.combobox.grid(row=3, column=0, padx=20, pady=20)
+        self.Device_label = customtkinter.CTkLabel(self.combobox_frame, text="Device", font=label_font2)
+        self.Device_label.grid(row=0, column=0, padx=20, sticky="ws")
+
+        self.combobox = customtkinter.CTkComboBox(self.combobox_frame)
+        self.combobox.grid(row=1, column=0, padx=20)
     
-   
-        self.home_frame.grid(row=0, column=1, sticky="nsew")
+        self.combobox_frame.grid(row=2, column=0,sticky="n")
+
+        self.jump_frame.grid(row=0, column=0,sticky="n")
+        self.button_frame.grid(row=1, column=0,sticky="n")
+        self.home_frame.grid(row=0, column=1,sticky="nsew")
         
 
     def change_appearance_mode_event(self, new_appearance_mode):

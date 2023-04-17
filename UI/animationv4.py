@@ -15,8 +15,8 @@ class Animation(customtkinter.CTkFrame):
         self.fps_jump = 500
         self.num_frames_jump = 480
         self.num_frames_idle = 1140
-        self.size_x = 400
-        self.size_y = 400
+        self.size_x = 550
+        self.size_y = 550
         self.frame_prefix_idle = "idle-"
         self.frame_prefix_jump = "jump-"
         self.folder_name = "C:\\git\\jumpy\\SolidWorksAnimation\\"
