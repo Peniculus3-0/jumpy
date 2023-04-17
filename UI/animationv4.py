@@ -4,29 +4,40 @@ import math
 import time
 from PIL import Image, ImageTk
 import os
-import sys
-sys.setrecursionlimit(20000)
 
+# La classe animation comprend tout ce qui est relié à l'animation et est appelé dans le code du UI
 class Animation(customtkinter.CTkFrame):
    def __init__(self, *args, header_name="Animation",**kwargs):
         super().__init__(*args, **kwargs)
+
+        # Définition du nombre d'images par seconde des animation
         self.fps_idle = 500
-        self.bool = 0
         self.fps_jump = 500
+
+        # Définition du booléen pour gérer les fils d'exécution
+        self.bool = 0
+
+        # Définition du nombre d'images dans chaque animation
         self.num_frames_jump = 480
         self.num_frames_idle = 1140
-        self.size_x = 400
-        self.size_y = 400
+
+        # Dimensions en pixel des images (même pour les deux)
+        self.size_x = 550
+        self.size_y = 550
+
+        # Paramètres pour trouver le dossier où sont les images
         self.frame_prefix_idle = "idle-"
         self.frame_prefix_jump = "jump-"
         self.folder_name = "C:\\git\\jumpy\\SolidWorksAnimation\\"
         self.frame_type = "000"
         self.header_name = header_name
 
-        # Load and store all frames in a dictionary
+        # Les deux prochaines boucles collectent et emmagasinent les images dans chacun de leur dictionnaire pour améliorer les performances
+
         self.frames = {}
+
         for i in range(1,self.num_frames_jump + 1):
-        #self.num_frames_jump + 1
+
             if i <= 9:
                 self.frame_type = "000"
             elif i <= 99 and i >= 10:
@@ -39,9 +50,11 @@ class Animation(customtkinter.CTkFrame):
             filename = os.path.join(f"{self.folder_name}{self.frame_prefix_jump}{self.frame_type}{i}.png")
             image = Image.open(filename).resize((self.size_x, self.size_y), resample=Image.LANCZOS)
             self.frames[i] = ImageTk.PhotoImage(image)
-        print("dic1 is finished")
+
+        print("idle images are loaded")
+
         for i in range(1, self.num_frames_idle + 1):
-        #self.num_frames_idle + 1
+
             if i <= 9:
                 self.frame_type = "000"
             elif i <= 99 and i >= 10:
@@ -55,26 +68,25 @@ class Animation(customtkinter.CTkFrame):
             image = Image.open(filename).resize((self.size_x, self.size_y), resample=Image.LANCZOS)
             self.frames[i + self.num_frames_jump] = ImageTk.PhotoImage(image)
 
-        print("dic2 is finished")
+        print("jump images are loaded")
+
+        # Initialise la première image de la première animation dans le label customtkinter
+
         self.frame_type = "000"
         self.frame_num = 1
         self.canvas = customtkinter.CTkLabel(self, image=customtkinter.CTkImage(Image.open(os.path.join(f"{self.folder_name}{self.frame_prefix_idle}{self.frame_type}{self.frame_num}.png")), size=(self.size_x, self.size_y)))
         self.canvas.configure(text="")
         self.canvas.grid(row=0, column=0, padx=10, pady=10)
 
-   def change(self):
-       self.update_frame(1)
-
-   def start(self):
-
-       self.update_frame(0)
-
+   # Permet de changer la valeur booléenne dans le code du UI
    def boolean(self):
        self.bool = 1
-       print("jai change la valeur de bool à 1!")
+
+   # Permet de changer la valeur booléenne dans le code du UI
    def boolean_false(self):
        self.bool = 0
-       print("jai change la valeur de bool à 0!")
+
+   # S'occupe du traitement de l'animation au repos
    def idle(self):
 
        fps = self.fps_idle
@@ -89,15 +101,16 @@ class Animation(customtkinter.CTkFrame):
            new_tk_image = self.frames[i + self.num_frames_jump]
            self.canvas.configure(image=new_tk_image)
            self.canvas.image = new_tk_image
+
+           # Attend le bon délais entre deux images
            self.canvas.after(int(1000 / fps))
            i += 1
-           print("je suis juste avant le if bool")
-           # print(self.bool)
-           if self.bool == 1:
-               print("je suis dans le break")
-               break
-       print("j'ai réussi a break!")
 
+           # Changement d'animation
+           if self.bool == 1:
+               break
+
+   # S'occupe du traitement de l'animation de saut
    def jump(self):
 
        fps = self.fps_jump
@@ -108,5 +121,6 @@ class Animation(customtkinter.CTkFrame):
            self.canvas.configure(image=new_tk_image)
            self.canvas.image = new_tk_image
            self.canvas.after(int(1000 / fps))
-       print("j'ai finis de jump")
+
+       # Retour à l'animation de repos
        Animation.idle(self)
