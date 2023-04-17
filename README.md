@@ -51,8 +51,8 @@ BOITE DE CONTROLE:
 - AcrylicWindowTopFrame_V1_CN (x1)
 
 ### PLAQUES D'ALUMINIUM À PLIER
-- Stopper20deg_REV0_CL (x1)
-- Stopper40deg_REV0_CL (x1)
+- Stopper20deg_REV0_CL (x2)
+- Stopper40deg_REV0_CL (x2)
 
 ### PLAQUES D'ACIER À DÉCOUPER ET PERCER
 - PlaqueEpaisseFlywheel_CN_V2 (x4)
