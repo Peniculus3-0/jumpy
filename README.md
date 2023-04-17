@@ -10,17 +10,20 @@
 
 ## UI 
 
-
+### REQUIS:
+* Une imprimante 3D
+* Pour le reste des pièces, voir le [BOM](/BOM.pdf)
 
 ## SherwoodUptodate
 
 ### PROCÉDURE:
 
 1. Imprimer les pièces 3D
-
-2. Couper les bâtons de hockey
-
-3. Assembler les pièces imprimées et les bâtons
+2. Découper les plaques d'acrylique au laser
+3. Découper et percer les plaques d'acier
+4. Découper et plier les plaques d'aluminium
+5. Couper les bâtons de hockey
+6. Assembler les pièces imprimées et les bâtons
 
 ### PIÈCES À IMPRIMER
 
@@ -39,18 +42,12 @@ BOITE DE CONTROLE:
 - Hinge_REV0_LC (x3)
 - MotorHolder_V1_LCV (x1)
 
-### REQUIS:
-* Une imprimante 3D
-* 1kg de filament (PLA)
-* Un bâton de hockey
-* Pour le reste des pièces, voir le [BOM](/BOM.pdf)
-
 ### PLAQUES D'ACRYLIQUE À DÉCOUPER
 - AcrylicPlaqueSide1_V1_CN (x4)
 - AcrylicPlaqueTop_V1_CN (x1)
 - AcrylicWindowTopFrame_V1_CN (x1)
 
-### PLAQUES D'ALUMINIUM À PLIER
+### PLAQUES D'ALUMINIUM À DÉCOUPER ET PLIER
 - Stopper20deg_REV0_CL (x2)
 - Stopper40deg_REV0_CL (x2)
 
