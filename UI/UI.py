@@ -26,12 +26,14 @@ device_list = []
 combo_box_values = []
 
 
+
+# Cette fonction tue les 
 def on_closing():
-    global client  # Use the global BleakClient instance
+    global client #Utilise une variable globale
     print("Closing window...")
     app.animation.boolean()
     print("Animation stopped")
-    app.destroy()  # Close the application window
+    app.destroy()  # Ferme la fenêtre
 
 
 def setlabel():
@@ -39,7 +41,7 @@ def setlabel():
     print(thread.name)
 
 
-
+#Cette classe représente le panneau d'affichage des informations du robot
 class MotorPanel(customtkinter.CTkFrame):
     def __init__(self, *args, header_name="Motor Panel", **kwargs):
         super().__init__(*args, **kwargs)
@@ -62,7 +64,7 @@ class MotorPanel(customtkinter.CTkFrame):
     def set_speed(self, speed):
         self.speed_label.configure(text= "Motor speed:" + str(speed))
         
-
+# La classe principale de l'application
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
@@ -93,16 +95,6 @@ class App(customtkinter.CTk):
         self.navigation_frame.grid_rowconfigure(3, weight=1)
 
 
-
-        # self.navigation_frame_label = customtkinter.CTkLabel(self.navigation_frame, text=" jumpy",
-        #                                                      compound="left", font=button_font)
-        
-        # self.navigation_frame_label.grid(row=0, column=0, padx=20, pady=20)
-
-        # self.home_button = customtkinter.CTkButton(self.navigation_frame, corner_radius=0, height=40, border_spacing=10, text="Home",
-        #                                            fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"))
-                                                   
-        # self.home_button.grid(row=1, column=0, sticky="ew")
 
 
         self.appearance_mode_menu = customtkinter.CTkOptionMenu(self.navigation_frame, values=["Light", "Dark", "System"],
@@ -151,8 +143,8 @@ class App(customtkinter.CTk):
         self.idle_temp = threading.Thread(target=self.animation.idle)
         self.idle_temp.start()
         self.protocol("WM_DELETE_WINDOW", on_closing)
+        
         def animation_jump():
-            print("allo")
             self.jump = threading.Thread(target=self.animation.jump)
             self.idle = threading.Thread(target=self.animation.idle)
             self.animation.boolean()
