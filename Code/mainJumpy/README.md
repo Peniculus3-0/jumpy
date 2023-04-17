@@ -1,4 +1,4 @@
-Installation OpenCR via le questionnaire de cartes : 
+# Installation OpenCR via le gestionnaire de cartes : 
 
 1.	Une fois l'IDE Arduino exécuté, cliquez sur Fichier → Préférences dans le menu supérieur de l'IDE. Lorsque la fenêtre Préférences apparaît, copiez et collez le lien suivant dans la zone de texte URL supplémentaires du gestionnaire de cartes. (Cette étape peut prendre environ 20 minutes.)
 
@@ -9,17 +9,20 @@ https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR/master/arduino/opencr_relea
 4.	Après l'installation, "INSTALLÉ" apparaîtra.
 5.	Vérifiez si la carte OpenCR est maintenant dans la liste Outils → Carte. Cliquez dessus pour importer la source de la carte OpenCR.
 
-Pour plus d’information :
+### Pour plus d’information :
 https://emanual.robotis.com/docs/en/parts/controller/opencr10/#install-on-windows
 
 
-Installation des librairies :
+# Installation des librairies :
 
 1.	Cliquez sur Croquis → Inclure une bibliothèque → Gérer les bibliothèques.
 2.	Tapez Dynamixel2Arduino dans la zone de texte pour trouver la bibliothèque by ROBOTIS. Une fois trouvé, cliquez sur Installer.
 3.	Après l'installation, "INSTALLÉ" apparaîtra.
 
-Utilisation du code Arduino :
+### Pour plus d’information :
+https://docs.arduino.cc/software/ide-v1/tutorials/installing-libraries
+
+# Utilisation du code Arduino :
 
 Il n’y a que trois commandes possibles pour utiliser le code à partir du moniteur série :
 -	« j » pour sauter sans tourner.
