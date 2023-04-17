@@ -41,13 +41,9 @@ BOITE DE CONTROLE:
 
 ## Vidéos
 
-#### Démonstration du robot
-[![Démonstration du robot]](https://www.youtube.com/shorts/cel7XVDD8pQ)
-
-
-#### Démonstration du saut à une jambe
-
-#### Démonstration de la roue inertielle
+[Démonstration du robot](https://www.youtube.com/shorts/cel7XVDD8pQ)
+[Démonstration du saut à une jambe](https://www.youtube.com/shorts/icxFYxDteIQ)
+[Démonstration de la roue inertielle](https://www.youtube.com/shorts/jROJLMc7-dI)
 
 
 
